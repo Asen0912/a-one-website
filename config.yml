@@ -2,8 +2,8 @@ backend:
   name: github
   repo: Asen0912/a-one-website
   branch: main
-  base_url: https://a-one-website.pages.dev
-  auth_endpoint: /api/auth
+  base_url: https://a-one-oauth.asenwei0912.workers.dev
+  auth_endpoint: auth
 
 media_folder: "images"
 public_folder: "/images"
