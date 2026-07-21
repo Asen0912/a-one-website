@@ -179,7 +179,56 @@
             from { text-shadow: 0 0 10px #00ff66, 0 0 20px #00ff66; }
             to { text-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66, 0 0 60px #00ff66; }
         }
-    </style>
+    
+        /* ===== FORUM SUPABASE STYLES ===== */
+        .forum-category-tab {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; border: 1px solid rgba(0,255,102,0.3);
+            font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 1px;
+            color: #888; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+        }
+        .forum-category-tab:hover { color: #00ff66; border-color: #00ff66; }
+        .forum-category-tab.active { background: rgba(0,255,102,0.1); color: #00ff66; border-color: #00ff66; }
+        .forum-post-card {
+            background: rgba(10,15,12,0.75); backdrop-filter: blur(12px);
+            border: 1px solid rgba(0,255,102,0.2); padding: 20px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .forum-post-card:hover { border-color: #00ff66; box-shadow: 0 0 20px rgba(0,255,102,0.15); }
+        .forum-comment-item {
+            border-left: 2px solid rgba(0,255,102,0.3); padding: 8px 12px; margin-bottom: 8px;
+            font-size: 12px; color: #aaa;
+        }
+        .forum-comment-item strong { color: #00ff66; }
+        .forum-loading { text-align: center; padding: 40px; color: #888; font-family: 'Orbitron', sans-serif; font-size: 12px; }
+        .forum-empty { text-align: center; padding: 40px; color: #555; font-family: 'Orbitron', sans-serif; font-size: 12px; }
+        .forum-error { text-align: center; padding: 20px; color: #ff3b3b; font-family: monospace; font-size: 11px; }
+        .forum-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+        .forum-pagination button {
+            padding: 6px 14px; border: 1px solid rgba(0,255,102,0.3); background: transparent;
+            color: #888; font-family: 'Orbitron', sans-serif; font-size: 11px; cursor: pointer;
+        }
+        .forum-pagination button:hover { color: #00ff66; border-color: #00ff66; }
+        .forum-pagination button.active { background: rgba(0,255,102,0.15); color: #00ff66; border-color: #00ff66; }
+        .forum-pagination button:disabled { opacity: 0.3; cursor: default; }
+        .logout-btn {
+            background: transparent; border: 1px solid rgba(255,59,59,0.4); color: #ff3b3b;
+            font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 1px;
+            padding: 4px 10px; cursor: pointer; margin-left: 6px; transition: all 0.2s;
+        }
+        .logout-btn:hover { background: #ff3b3b; color: #000; }
+        .comment-modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            z-index: 210; display: none; align-items: center; justify-content: center;
+        }
+        .comment-modal-overlay.show { display: flex; }
+        .comment-modal {
+            background: rgba(10,15,12,0.95); border: 1px solid rgba(0,255,102,0.3);
+            padding: 24px; width: 90%; max-width: 560px; max-height: 80vh; overflow-y: auto;
+            box-shadow: 0 0 30px rgba(0,255,102,0.2);
+        }
+        .comment-modal h3 { font-family: 'Orbitron', sans-serif; color: #00ff66; font-size: 18px; margin-bottom: 16px; }
+</style>
 </head>
 <body class="bg-dark text-white font-sans overflow-x-hidden selection:bg-neon selection:text-black">
 
@@ -564,6 +613,7 @@
                     </button>
                 </div>
 
+                <div id="forum-cat-tabs" class="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-2"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     <!-- Left: Main Forum Posts Feed -->
                     <div class="lg:col-span-7 space-y-6" id="forum-posts-container">
@@ -711,8 +761,16 @@
         </div>
     </footer>
 
-    <script>
+        <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
         // Global Application State
+
+        // Supabase Client Initialization
+        const SUPABASE_URL = 'https://mwqkizlgxtxksflufvptb.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_gMcQn5TcAHTRR9JLKxY1_w_sThRWwuR';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
         const state = {
             currentUser: JSON.parse(localStorage.getItem('aone_user')) || null,
             playingTrackIndex: null,
@@ -729,6 +787,36 @@
             events: [],
             posts: []
         };
+
+        // Load user profile from Supabase
+        async function loadCurrentUser(user) {
+            const { data: profile, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', user.id)
+                .single();
+
+            state.currentUser = {
+                id: user.id,
+                email: user.email,
+                display_name: profile?.display_name || user.user_metadata?.display_name || 'RAVER',
+                username: profile?.display_name || user.user_metadata?.display_name || 'RAVER',
+                avatar_url: profile?.avatar_url || null
+            };
+            localStorage.setItem('aone_user', JSON.stringify(state.currentUser));
+            updateAuthUI();
+        }
+
+        // Check existing session on load
+        async function checkSession() {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (session && session.user) {
+                await loadCurrentUser(session.user);
+            } else {
+                state.currentUser = null;
+                updateAuthUI();
+            }
+        }
 
         // Load configuration from CMS-managed JSON
         async function loadSiteConfig() {
@@ -1389,54 +1477,193 @@
             }
         }
 
-        /* Forum & Live Chat Logic */
-        function renderForumPosts() {
+        /* ===== SUPABASE FORUM LOGIC ===== */
+        let forumCategories = [];
+        let forumPosts = [];
+        let currentCategoryId = null;
+        let forumPage = 0;
+        const POSTS_PER_PAGE = 5;
+
+        async function loadCategories() {
+            const catTabs = document.getElementById('forum-cat-tabs');
+            if (!catTabs) return;
+            catTabs.innerHTML = '<span class="forum-category-tab active" data-cat="all">ALL</span>';
+
+            const { data, error } = await supabase
+                .from('categories').select('*').order('name');
+            if (error) { console.warn('Categories load error:', error); return; }
+            forumCategories = data || [];
+            forumCategories.forEach(cat => {
+                const tab = document.createElement('span');
+                tab.className = 'forum-category-tab';
+                tab.setAttribute('data-cat', cat.id);
+                tab.innerText = cat.name || 'CATEGORY';
+                tab.onclick = () => switchCategory(cat.id, tab);
+                catTabs.appendChild(tab);
+            });
+            switchCategory(null, catTabs.querySelector('.forum-category-tab'));
+        }
+
+        async function switchCategory(catId, tabEl) {
+            currentCategoryId = catId;
+            forumPage = 0;
+            document.querySelectorAll('.forum-category-tab').forEach(t => t.classList.remove('active'));
+            if (tabEl) tabEl.classList.add('active');
+            await loadPosts();
+        }
+
+        async function loadPosts(page = 0) {
+            forumPage = page;
             const container = document.getElementById('forum-posts-container');
-            container.innerHTML = state.posts.map(post => `
-                <div class="glass-panel p-6 border border-neon/20 neon-box-hover">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="${post.avatar}" class="w-10 h-10 rounded-full border border-neon">
-                        <div>
-                            <h5 class="font-orbitron font-bold text-sm text-white">${post.username}</h5>
-                            <span class="text-[10px] text-neon font-mono">A-ONE MEMBER</span>
+            container.innerHTML = '<div class="forum-loading"><span class="animate-pulse">LOADING FORUM DATA...</span></div>';
+
+            let query = supabase.from('posts').select('*, profiles(display_name, avatar_url), categories(name)', { count: 'exact' });
+
+            if (currentCategoryId) {
+                query = query.eq('category_id', currentCategoryId);
+            }
+            query = query.order('created_at', { ascending: false })
+                .range(page * POSTS_PER_PAGE, (page + 1) * POSTS_PER_PAGE - 1);
+
+            const { data, error, count } = await query;
+            if (error) {
+                container.innerHTML = '<div class="forum-error">// ERROR: ' + error.message + '</div>';
+                return;
+            }
+            forumPosts = data || [];
+            const totalPages = Math.ceil((count || 0) / POSTS_PER_PAGE);
+
+            if (!forumPosts.length) {
+                container.innerHTML = '<div class="forum-empty">// NO POSTS FOUND IN THIS CATEGORY</div>';
+            } else {
+                container.innerHTML = forumPosts.map(post => {
+                    const displayName = post.profiles?.display_name || 'ANONYMOUS';
+                    const avatar = post.profiles?.avatar_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80';
+                    const catName = post.categories?.name || '';
+                    const date = post.created_at ? new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+                    return `
+                    <div class="forum-post-card">
+                        <div class="flex items-center gap-3 mb-4">
+                            <img src="${avatar}" class="w-10 h-10 rounded-full border border-neon/50 object-cover">
+                            <div>
+                                <h5 class="font-orbitron font-bold text-sm text-white">${displayName}</h5>
+                                <span class="text-[10px] text-neon font-mono">A-ONE MEMBER${catName ? ' • ' + catName : ''}${date ? ' • ' + date : ''}</span>
+                            </div>
+                        </div>
+                        <h4 class="font-orbitron font-bold text-lg text-neon mb-2">${post.title || 'Untitled'}</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-4">${post.content || ''}</p>
+                        <div class="flex items-center gap-6 text-xs font-orbitron text-gray-400">
+                            <button onclick="likePostSupabase('${post.id}')" class="flex items-center gap-1 hover:text-neon">
+                                <i data-lucide="heart" class="w-4 h-4 text-neon"></i> ${post.likes || 0} LIKES
+                            </button>
+                            <button onclick="openCommentModal('${post.id}')" class="flex items-center gap-1 hover:text-neon">
+                                <i data-lucide="message-square" class="w-4 h-4 text-neon"></i> COMMENTS
+                            </button>
                         </div>
                     </div>
-                    <h4 class="font-orbitron font-bold text-lg text-neon mb-2">${post.title}</h4>
-                    <p class="text-gray-300 text-sm leading-relaxed mb-4">${post.content}</p>
-                    <div class="flex items-center gap-6 text-xs font-orbitron text-gray-400">
-                        <button onclick="likePost(${post.id})" class="flex items-center gap-1 hover:text-neon">
-                            <i data-lucide="heart" class="w-4 h-4 text-neon"></i> ${post.likes} LIKES
-                        </button>
-                        <span class="flex items-center gap-1">
-                            <i data-lucide="message-square" class="w-4 h-4 text-neon"></i> ${post.commentsCount} COMMENTS
-                        </span>
-                    </div>
-                </div>
-            `).join('');
+                `}).join('');
+
+                // Pagination
+                if (totalPages > 1) {
+                    let pagHTML = '<div class="forum-pagination">';
+                    pagHTML += `<button ${page === 0 ? 'disabled' : ''} onclick="loadPosts(${page - 1})">◀ PREV</button>`;
+                    for (let i = 0; i < totalPages; i++) {
+                        pagHTML += `<button class="${i === page ? 'active' : ''}" onclick="loadPosts(${i})">${i + 1}</button>`;
+                    }
+                    pagHTML += `<button ${page >= totalPages - 1 ? 'disabled' : ''} onclick="loadPosts(${page + 1})">NEXT ▶</button>`;
+                    pagHTML += '</div>';
+                    container.innerHTML += pagHTML;
+                }
+            }
             lucide.createIcons();
         }
 
-        function likePost(id) {
-            const post = state.posts.find(p => p.id === id);
-            if (post) {
-                post.likes++;
-                renderForumPosts();
-                showToast("Post Liked!");
-            }
+        async function likePostSupabase(postId) {
+            if (!state.currentUser) { showToast('Login required to like posts', 'error'); return; }
+            const { error } = await supabase.rpc('increment_likes', { post_id: postId });
+            if (error) { showToast(error.message, 'error'); return; }
+            await loadPosts(forumPage);
         }
 
+        async function openCommentModal(postId) {
+            let modal = document.getElementById('comment-modal-overlay');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'comment-modal-overlay';
+                modal.className = 'comment-modal-overlay';
+                modal.innerHTML = `
+                    <div class="comment-modal">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-orbitron font-bold text-neon">// COMMENTS</h3>
+                            <button onclick="closeCommentModal()" class="text-gray-400 hover:text-neon text-xl">&times;</button>
+                        </div>
+                        <div id="comment-list" class="max-h-64 overflow-y-auto mb-4"></div>
+                        <div class="flex gap-2">
+                            <input type="text" id="comment-input" placeholder="Write a comment..." class="flex-1 bg-black/80 border border-neon/30 p-3 text-xs text-white focus:outline-none focus:border-neon font-mono">
+                            <button onclick="submitComment('${postId}')" class="cyber-button px-4 py-2 text-xs font-bold">POST</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+            modal.classList.add('show');
+            modal.setAttribute('data-post-id', postId);
+            await loadComments(postId);
+            modal.addEventListener('click', function(e) { if (e.target === this) closeCommentModal(); });
+        }
+
+        function closeCommentModal() {
+            const modal = document.getElementById('comment-modal-overlay');
+            if (modal) modal.classList.remove('show');
+        }
+
+        async function loadComments(postId) {
+            const list = document.getElementById('comment-list');
+            list.innerHTML = '<div class="forum-loading">Loading comments...</div>';
+            const { data, error } = await supabase
+                .from('comments')
+                .select('*, profiles(display_name)')
+                .eq('post_id', postId)
+                .order('created_at', { ascending: true });
+            if (error) { list.innerHTML = '<div class="forum-error">Failed to load comments</div>'; return; }
+            if (!data || !data.length) {
+                list.innerHTML = '<div class="forum-empty">No comments yet. Be the first!</div>';
+                return;
+            }
+            list.innerHTML = data.map(c => `
+                <div class="forum-comment-item">
+                    <strong>${c.profiles?.display_name || 'ANONYMOUS'}</strong>
+                    <span style="color:#555;font-size:10px"> • ${new Date(c.created_at).toLocaleString()}</span>
+                    <p style="margin-top:4px">${c.content || ''}</p>
+                </div>
+            `).join('');
+        }
+
+        async function submitComment(postId) {
+            if (!state.currentUser) { showToast('Login required to comment', 'error'); return; }
+            const input = document.getElementById('comment-input');
+            const content = input.value.trim();
+            if (!content) return;
+            const { error } = await supabase.from('comments').insert({
+                post_id: postId, user_id: state.currentUser.id, content
+            });
+            if (error) { showToast(error.message, 'error'); return; }
+            input.value = '';
+            await loadComments(postId);
+        }
+
+        // likePost replaced by likePostSupabase (Supabase RPC)
+
         function sendChatMessage() {
+            if (!state.currentUser) { showToast('Login required to chat', 'error'); return; }
             const input = document.getElementById('chat-input');
             const msg = input.value.trim();
             if (!msg) return;
-
             const chatFeed = document.getElementById('chat-feed');
-            const username = state.currentUser ? state.currentUser.username : "GUEST_RAVER";
-
+            const username = state.currentUser.display_name || state.currentUser.username || 'RAVER';
             const msgEl = document.createElement('div');
             msgEl.className = 'glass-panel p-2 border border-neon/20';
             msgEl.innerHTML = `<span class="text-neon font-bold">[${username}]:</span> <span class="text-gray-200">${msg}</span>`;
-            
             chatFeed.appendChild(msgEl);
             chatFeed.scrollTop = chatFeed.scrollHeight;
             input.value = '';
@@ -1444,10 +1671,30 @@
 
         function updateAuthUI() {
             const btnText = document.getElementById('user-btn-text');
+            const btnContainer = btnText.parentElement;
+            // Remove existing logout button
+            const existingLogout = btnContainer.querySelector('.logout-btn');
+            if (existingLogout) existingLogout.remove();
+
             if (state.currentUser) {
-                btnText.innerText = `${state.currentUser.username} (${state.currentUser.level})`;
+                btnText.innerText = state.currentUser.display_name || state.currentUser.username || 'RAVER';
+                // Add logout button
+                const logoutBtn = document.createElement('button');
+                logoutBtn.className = 'logout-btn';
+                logoutBtn.innerText = 'LOGOUT';
+                logoutBtn.onclick = async function(e) {
+                    e.stopPropagation();
+                    await supabase.auth.signOut();
+                    state.currentUser = null;
+                    localStorage.removeItem('aone_user');
+                    updateAuthUI();
+                    showToast('Logged out');
+                };
+                btnContainer.appendChild(logoutBtn);
+                btnContainer.closest('button').onclick = null; // disable auth modal on click
             } else {
                 btnText.innerText = 'LOGIN';
+                btnContainer.closest('button').onclick = function() { openAuthModal(); };
             }
         }
 
@@ -1478,29 +1725,50 @@
             }
         }
 
-        function handleLogin(e) {
+        async function handleLogin(e) {
             e.preventDefault();
-            state.currentUser = {
-                username: "RAVER_VIP",
-                level: "MEMBER"
-            };
-            localStorage.setItem('aone_user', JSON.stringify(state.currentUser));
-            updateAuthUI();
-            closeAuthModal();
-            showToast("Welcome back, A-ONE Member!");
+            const form = e.target;
+            const email = form.querySelector('input[type="email"]').value.trim();
+            const password = form.querySelector('input[type="password"]').value.trim();
+            if (!email || !password) { showToast('Please fill all fields', 'error'); return; }
+            
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                showToast(error.message || 'Login failed', 'error');
+                return;
+            }
+            if (data.user) {
+                await loadCurrentUser(data.user);
+                closeAuthModal();
+                showToast('Welcome back, ' + (state.currentUser?.display_name || 'Raver') + '!');
+                form.reset();
+            }
         }
 
-        function handleRegister(e) {
+        async function handleRegister(e) {
             e.preventDefault();
-            const username = document.getElementById('reg-username').value || "AONE_RAVER";
-            state.currentUser = {
-                username: username,
-                level: "VIP"
-            };
-            localStorage.setItem('aone_user', JSON.stringify(state.currentUser));
-            updateAuthUI();
-            closeAuthModal();
-            showToast("VIP Account Created Successfully!");
+            const username = document.getElementById('reg-username').value.trim();
+            const form = e.target;
+            const email = form.querySelector('input[type="email"]').value.trim();
+            const password = form.querySelector('input[type="password"]').value.trim();
+            if (!username || !email || !password) { showToast('Please fill all fields', 'error'); return; }
+            if (password.length < 6) { showToast('Password must be at least 6 characters', 'error'); return; }
+
+            const { data, error } = await supabase.auth.signUp({
+                email, password,
+                options: { data: { display_name: username } }
+            });
+            if (error) {
+                showToast(error.message || 'Registration failed', 'error');
+                return;
+            }
+            if (data.user) {
+                await loadCurrentUser(data.user);
+                closeAuthModal();
+                showToast('Account created! Welcome, ' + username + '!');
+                form.reset();
+                document.getElementById('reg-username').value = '';
+            }
         }
 
         /* Modal Handlers */
@@ -1527,28 +1795,24 @@
             document.getElementById('post-modal').classList.add('hidden');
         }
 
-        function submitNewPost() {
-            const title = document.getElementById('new-post-title').value;
-            const content = document.getElementById('new-post-content').value;
+        async function submitNewPost() {
+            if (!state.currentUser) { showToast('Please login first', 'error'); openAuthModal(); return; }
+            const title = document.getElementById('new-post-title').value.trim();
+            const content = document.getElementById('new-post-content').value.trim();
+            if (!title || !content) { showToast('Please complete post title and content!', 'error'); return; }
 
-            if (!title || !content) {
-                showToast("Please complete post title and content!");
-                return;
-            }
-
-            state.posts.unshift({
-                id: Date.now(),
-                username: state.currentUser ? state.currentUser.username : "ANONYMOUS_RAVER",
-                avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80",
-                title: title,
-                content: content,
-                likes: 1,
-                commentsCount: 0
+            const { error } = await supabase.from('posts').insert({
+                title, content,
+                user_id: state.currentUser.id,
+                category_id: currentCategoryId || null,
+                likes: 0
             });
-
-            renderForumPosts();
+            if (error) { showToast(error.message, 'error'); return; }
+            document.getElementById('new-post-title').value = '';
+            document.getElementById('new-post-content').value = '';
             closePostModal();
-            showToast("New post published!");
+            await loadPosts(0);
+            showToast("Post published to community!");
         }
 
         function toggleMobileMenu() {
@@ -1568,13 +1832,17 @@
             // 1. Initialize 3D Three.js particle scene
             initThreeJS();
 
-            // 2. Render dynamic content blocks
+            // 2. Check Supabase session
+            await checkSession();
+
+            // 3. Load forum categories & posts
+            await loadCategories();
+
+            // 4. Render dynamic content blocks
             renderArtists();
             loadTrack(0);
             renderEvents();
             renderGallery();
-            renderForumPosts();
-            updateAuthUI();
             lucide.createIcons();
 
             // 3. Initialize Canvas visualizer & Map
