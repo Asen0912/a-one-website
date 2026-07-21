@@ -4,19 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A-ONE CMS | Content Manager</title>
-    <script src="js/bundle.js"></script>
     <style>
         body { margin: 0; padding: 0; }
     </style>
 </head>
 <body>
     <script>
-        // Initialize Decap CMS with local config
-        CMS.init({
-            config: {
-                load_config_file: true
-            }
-        });
+        (async function() {
+            const resp = await fetch('/admin/js/bundle.js');
+            const code = await resp.text();
+            const s = document.createElement('script');
+            s.textContent = code;
+            document.body.appendChild(s);
+
+            // Wait for CMS to be defined, then init
+            let attempts = 0;
+            const check = setInterval(function() {
+                attempts++;
+                if (typeof CMS !== 'undefined') {
+                    clearInterval(check);
+                    CMS.init({ config: { load_config_file: true } });
+                } else if (attempts > 50) {
+                    clearInterval(check);
+                    document.body.innerHTML = '<div style="padding:40px;font-family:sans-serif;">CMS failed to load. Please disable ad blocker for this site.</div>';
+                }
+            }, 100);
+        })();
     </script>
 </body>
 </html>
