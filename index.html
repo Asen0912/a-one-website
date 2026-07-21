@@ -620,9 +620,10 @@
                     <label class="block font-orbitron text-xs text-neon mb-2">EMAIL ADDRESS</label>
                     <input type="email" required placeholder="raver@aone.com" class="w-full bg-black/80 border border-neon/30 p-3 text-sm text-white focus:outline-none focus:border-neon font-mono">
                 </div>
-                <div>
+                <div style="position:relative;">
                     <label class="block font-orbitron text-xs text-neon mb-2">PASSWORD</label>
-                    <input type="password" required placeholder="••••••••" class="w-full bg-black/80 border border-neon/30 p-3 text-sm text-white focus:outline-none focus:border-neon font-mono">
+                    <input type="password" required placeholder="••••••••" class="w-full bg-black/80 border border-neon/30 p-3 pr-10 text-sm text-white focus:outline-none focus:border-neon font-mono">
+                    <span onclick="const p=this.previousElementSibling;p.type=p.type==='password'?'text':'password'" style="cursor:pointer;position:absolute;right:10px;bottom:4px;font-size:14px;user-select:none;">👁</span>
                 </div>
                 <button type="submit" class="cyber-button w-full py-4 text-sm font-bold mt-4">ENTRANCE AUTHENTICATION</button>
             </form>
@@ -637,9 +638,15 @@
                     <label class="block font-orbitron text-xs text-neon mb-1">EMAIL ADDRESS</label>
                     <input type="email" required placeholder="raver@aone.com" class="w-full bg-black/80 border border-neon/30 p-3 text-sm text-white focus:outline-none focus:border-neon font-mono">
                 </div>
-                <div>
+                <div style="position:relative;">
                     <label class="block font-orbitron text-xs text-neon mb-1">PASSWORD</label>
-                    <input type="password" required placeholder="••••••••" class="w-full bg-black/80 border border-neon/30 p-3 text-sm text-white focus:outline-none focus:border-neon font-mono">
+                    <input type="password" required placeholder="••••••••" class="w-full bg-black/80 border border-neon/30 p-3 pr-10 text-sm text-white focus:outline-none focus:border-neon font-mono">
+                    <span onclick="const p=this.previousElementSibling;p.type=p.type==='password'?'text':'password'" style="cursor:pointer;position:absolute;right:10px;bottom:4px;font-size:14px;user-select:none;">👁</span>
+                </div>
+                <div style="position:relative;">
+                    <label class="block font-orbitron text-xs text-neon mb-1">CONFIRM PASSWORD</label>
+                    <input type="password" id="reg-confirm-password" required placeholder="••••••••" class="w-full bg-black/80 border border-neon/30 p-3 pr-10 text-sm text-white focus:outline-none focus:border-neon font-mono">
+                    <span onclick="const p=this.previousElementSibling;p.type=p.type==='password'?'text':'password'" style="cursor:pointer;position:absolute;right:10px;bottom:4px;font-size:14px;user-select:none;">👁</span>
                 </div>
                 <button type="submit" class="cyber-button w-full py-4 text-sm font-bold mt-2">CREATE MEMBER ACCOUNT</button>
             </form>
@@ -1389,6 +1396,11 @@
             const username = form.querySelector('#reg-username').value;
             const email = form.querySelectorAll('input[type="email"]')[0].value;
             const password = form.querySelectorAll('input[type="password"]')[0].value;
+            const confirmPassword = form.querySelector('#reg-confirm-password').value;
+            if (password !== confirmPassword) {
+                showToast("Passwords do not match");
+                return;
+            }
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
@@ -1586,6 +1598,10 @@
 
             // 4. Check Supabase session & load forum posts
             checkSession().then(() => loadPosts());
+
+            // 5. Bind form submit events
+            document.getElementById('login-form').addEventListener('submit', handleLogin);
+            document.getElementById('register-form').addEventListener('submit', handleRegister);
 
             // Typing effect simulation
             const typingTextEl = document.getElementById('typing-text');
