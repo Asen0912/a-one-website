@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "title": "A-ONE Electronic Music Label | Enter The Experience",
+    "footer_copyright": "© 2026 A-ONE ELECTRONIC MUSIC LABEL. ALL RIGHTS RESERVED.",
+    "footer_powered": "POWERED BY THREE.JS • WEB AUDIO API • NEXT ARCHITECTURE"
+  },
+  "hero": {
+    "badge": "FUTURE ELECTRONIC MUSIC LABEL",
+    "title": "A-ONE",
+    "subtitle": "ENTER THE EXPERIENCE",
+    "btn1_text": "LISTEN RELEASES",
+    "btn1_link": "#music",
+    "btn2_text": "UPCOMING RAVES",
+    "btn2_link": "#events",
+    "status_text": "3D SOUNDSCAPE & PARTICLES ACTIVE"
+  },
+  "about": {
+    "code": "// 01 BRAND MANIFESTO",
+    "title": "ABOUT A-ONE",
+    "location": "EST. 2026 / SHANGHAI • BEIJING • TOKYO",
+    "typing_text": "A-ONE IS A FUTURE ELECTRONIC MUSIC LABEL...",
+    "desc_en": "Connecting underground frequency with cyber visual aesthetics, A-ONE operates at the intersection of Peak-time Techno, Melodic House, and Futuristic Industrial soundscapes.",
+    "desc_cn": "我们创造的不只是音乐，而是一种属于未来城市的沉浸式感官体验。无论是声光交织的赛博派对，还是数码时代的先锋音符，A-ONE 始终站在电子音乐的最前沿。"
+  },
+  "values": [
+    {"icon": "zap", "title": "CREATE", "desc": "Pushing sound design into unmapped territories."},
+    {"icon": "radio", "title": "CONNECT", "desc": "Linking global producers, DJs, and rave lovers."},
+    {"icon": "flame", "title": "ENERGY", "desc": "High-bpm live experiences and warehouse raves."},
+    {"icon": "cpu", "title": "CYBER", "desc": "Integrating audio visualizers and Web3 ID."}
+  ],
+  "stats": [
+    {"number": "50+", "label": "OFFICIAL RELEASES"},
+    {"number": "12", "label": "RESIDENT ARTISTS"},
+    {"number": "350K+", "label": "GLOBAL LISTENERS"},
+    {"number": "100%", "label": "PURE ELECTRONIC"}
+  ],
+  "artists_section": {
+    "code": "// 02 LABEL ROSTER",
+    "title": "RESIDENT ARTISTS",
+    "hint": "Hover over cards to activate 3D spatial alignment. Click artist to inspect releases."
+  },
+  "artists": [
+    {
+      "name": "NEON VOID",
+      "style": "PEAK-TIME TECHNO",
+      "image": "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800&auto=format&fit=crop&q=80",
+      "bio": "Future electronic sound explorer known for driving 135BPM dark techno basslines and hypnotic visuals.",
+      "top_track": "SUNSET ENERGY"
+    },
+    {
+      "name": "LUNA X",
+      "style": "MELODIC HOUSE",
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+      "bio": "Melodic night performer creating ethereal synth soundscapes and deep resonant bass.",
+      "top_track": "CYBER NIGHT"
+    },
+    {
+      "name": "ZERO ONE",
+      "style": "CYBER INDUSTRIAL",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
+      "bio": "Digital music creator fusing glitch soundscapes with metallic hard electro grooves.",
+      "top_track": "DIGITAL DREAM"
+    }
+  ],
+  "music_section": {
+    "code": "// 03 DISCOGRAPHY & SOUND",
+    "title": "MUSIC RELEASES",
+    "status": "WEB AUDIO ENGINE READY",
+    "tracklist_title": "RECENT RELEASES"
+  },
+  "tracks": [
+    {
+      "title": "SUNSET ENERGY",
+      "artist": "NEON VOID",
+      "cover": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
+      "style": "TECHNO",
+      "date": "2026.08.18",
+      "bpm": 132,
+      "synthType": "techno"
+    },
+    {
+      "title": "CYBER NIGHT",
+      "artist": "LUNA X",
+      "cover": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80",
+      "style": "HOUSE",
+      "date": "2026.07.01",
+      "bpm": 124,
+      "synthType": "house"
+    },
+    {
+      "title": "DIGITAL DREAM",
+      "artist": "ZERO ONE",
+      "cover": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80",
+      "style": "ELECTRONIC",
+      "date": "2026.06.20",
+      "bpm": 128,
+      "synthType": "cyber"
+    }
+  ],
+  "events_section": {
+    "code": "// 04 LIVE EXPERIENCE & RAVES",
+    "title": "UPCOMING EVENTS",
+    "status": "TICKET SYSTEM READY"
+  },
+  "events": [
+    {
+      "title": "A-ONE SUNSET PARTY",
+      "date": "2026.08.18",
+      "time": "18:00 - 02:00",
+      "location": "BEIJING • 751 PARK",
+      "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop&q=80",
+      "x": 280,
+      "y": 150
+    },
+    {
+      "title": "A-ONE WAREHOUSE RAVE",
+      "date": "2026.09.08",
+      "time": "22:00 - 06:00",
+      "location": "SHANGHAI • WAREHOUSE 192",
+      "image": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80",
+      "x": 320,
+      "y": 220
+    },
+    {
+      "title": "A-ONE FESTIVAL 2026",
+      "date": "2026.10.21",
+      "time": "12:00 - 23:00",
+      "location": "SHENZHEN • FUTIAN CENTER",
+      "image": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80",
+      "x": 290,
+      "y": 280
+    }
+  ],
+  "gallery_section": {
+    "code": "// 05 PAST REVIEWS",
+    "title": "RAVE GALLERY",
+    "desc": "Moments, lasers, and euphoria captured across warehouse raves.",
+    "video_title": "A-ONE FESTIVAL 2025 AFTERMOVIE",
+    "video_subtitle": "CLICK TO WATCH HIGHLIGHT REEL",
+    "video_cover": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&auto=format&fit=crop&q=80"
+  },
+  "gallery_photos": [
+    {"src": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80", "label": "RAVE MOMENT #1", "year": "2025/2026"},
+    {"src": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80", "label": "RAVE MOMENT #2", "year": "2025/2026"},
+    {"src": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80", "label": "RAVE MOMENT #3", "year": "2025/2026"},
+    {"src": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop&q=80", "label": "RAVE MOMENT #4", "year": "2025/2026"},
+    {"src": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&auto=format&fit=crop&q=80", "label": "RAVE MOMENT #5", "year": "2025/2026"},
+    {"src": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80", "label": "RAVE MOMENT #6", "year": "2025/2026"}
+  ],
+  "forum_section": {
+    "code": "// 06 RAVER COMMUNITY",
+    "title": "COMMUNITY FORUM",
+    "new_post_btn": "CREATE NEW POST",
+    "chat_title": "LIVE CHATROOM",
+    "online_count": "ONLINE: 248",
+    "chat_placeholder": "Say something in cyber channel..."
+  },
+  "posts": [
+    {
+      "username": "CYBER_RAVER",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80",
+      "title": "The lasers at A-ONE Sunset Rave were insane last night!",
+      "content": "NEON VOID played an unreleased Techno ID at 2 AM. The crowd went wild. Has anyone recorded the full set?",
+      "likes": 42,
+      "commentsCount": 8
+    },
+    {
+      "username": "TECHNO_QUEEN",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80",
+      "title": "A-ONE 2026 Label Tracklist Analysis",
+      "content": "The synth layering on 'SUNSET ENERGY' is incredible. Clean sub bass and crisp hi-hats. A-ONE is leading Chinese electronic sound design right now.",
+      "likes": 29,
+      "commentsCount": 5
+    }
+  ],
+  "nav_links": [
+    {"label": "HOME", "href": "#home"},
+    {"label": "ABOUT", "href": "#about"},
+    {"label": "ARTISTS", "href": "#artists"},
+    {"label": "MUSIC", "href": "#music"},
+    {"label": "EVENTS", "href": "#events"},
+    {"label": "GALLERY", "href": "#gallery"},
+    {"label": "FORUM", "href": "#forum"}
+  ],
+  "map_section": {
+    "title": "A-ONE GLOBAL RAVE RADAR",
+    "desc": "Interactive Cyber Canvas Radar showing active event coordinates"
+  }
+}

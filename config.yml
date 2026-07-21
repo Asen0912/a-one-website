@@ -1,0 +1,191 @@
+backend:
+  name: github
+  repo: Asen0912/a-one-website
+  branch: main
+  base_url: https://a-one-website.pages.dev
+  auth_endpoint: /api/auth
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "index"
+        label: "Home Page"
+        file: "data/site_config.json"
+        format: "json"
+        fields:
+          # --- Meta & Branding ---
+          - label: "Site Meta"
+            name: "meta"
+            widget: "object"
+            fields:
+              - {label: "Page Title", name: "title", widget: "string", default: "A-ONE Electronic Music Label | Enter The Experience"}
+              - {label: "Footer Copyright", name: "footer_copyright", widget: "string", default: "© 2026 A-ONE ELECTRONIC MUSIC LABEL. ALL RIGHTS RESERVED."}
+              - {label: "Footer Powered By", name: "footer_powered", widget: "string", default: "POWERED BY THREE.JS • WEB AUDIO API • NEXT ARCHITECTURE"}
+
+          # --- Hero / Home Section ---
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {label: "Top Badge", name: "badge", widget: "string", default: "FUTURE ELECTRONIC MUSIC LABEL"}
+              - {label: "Main Title", name: "title", widget: "string", default: "A-ONE"}
+              - {label: "Subtitle", name: "subtitle", widget: "string", default: "ENTER THE EXPERIENCE"}
+              - {label: "Button 1 Text", name: "btn1_text", widget: "string", default: "LISTEN RELEASES"}
+              - {label: "Button 1 Link", name: "btn1_link", widget: "string", default: "#music"}
+              - {label: "Button 2 Text", name: "btn2_text", widget: "string", default: "UPCOMING RAVES"}
+              - {label: "Button 2 Link", name: "btn2_link", widget: "string", default: "#events"}
+              - {label: "Status Indicator Text", name: "status_text", widget: "string", default: "3D SOUNDSCAPE & PARTICLES ACTIVE"}
+
+          # --- About Section ---
+          - label: "About Section"
+            name: "about"
+            widget: "object"
+            fields:
+              - {label: "Section Code", name: "code", widget: "string", default: "// 01 BRAND MANIFESTO"}
+              - {label: "Section Title", name: "title", widget: "string", default: "ABOUT A-ONE"}
+              - {label: "Location Line", name: "location", widget: "string", default: "EST. 2026 / SHANGHAI • BEIJING • TOKYO"}
+              - {label: "Typing Text", name: "typing_text", widget: "string", default: "A-ONE IS A FUTURE ELECTRONIC MUSIC LABEL..."}
+              - {label: "Description EN", name: "desc_en", widget: "text", default: "Connecting underground frequency with cyber visual aesthetics, A-ONE operates at the intersection of Peak-time Techno, Melodic House, and Futuristic Industrial soundscapes."}
+              - {label: "Description CN", name: "desc_cn", widget: "text", default: "我们创造的不只是音乐，而是一种属于未来城市的沉浸式感官体验。无论是声光交织的赛博派对，还是数码时代的先锋音符，A-ONE 始终站在电子音乐的最前沿。"}
+
+          # --- Core Values ---
+          - label: "Core Values"
+            name: "values"
+            widget: "list"
+            fields:
+              - {label: "Icon (Lucide)", name: "icon", widget: "string", default: "zap"}
+              - {label: "Title", name: "title", widget: "string", default: "CREATE"}
+              - {label: "Description", name: "desc", widget: "string", default: "Pushing sound design into unmapped territories."}
+
+          # --- Stats ---
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            fields:
+              - {label: "Number", name: "number", widget: "string", default: "50+"}
+              - {label: "Label", name: "label", widget: "string", default: "OFFICIAL RELEASES"}
+
+          # --- Artists Section ---
+          - label: "Artists Section"
+            name: "artists_section"
+            widget: "object"
+            fields:
+              - {label: "Section Code", name: "code", widget: "string", default: "// 02 LABEL ROSTER"}
+              - {label: "Section Title", name: "title", widget: "string", default: "RESIDENT ARTISTS"}
+              - {label: "Hint Text", name: "hint", widget: "string", default: "Hover over cards to activate 3D spatial alignment. Click artist to inspect releases."}
+
+          - label: "Artists"
+            name: "artists"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string", default: "NEON VOID"}
+              - {label: "Style", name: "style", widget: "string", default: "PEAK-TIME TECHNO"}
+              - {label: "Image URL", name: "image", widget: "string", default: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800&auto=format&fit=crop&q=80"}
+              - {label: "Bio", name: "bio", widget: "text", default: "Future electronic sound explorer known for driving 135BPM dark techno basslines and hypnotic visuals."}
+              - {label: "Top Track", name: "top_track", widget: "string", default: "SUNSET ENERGY"}
+
+          # --- Music Section ---
+          - label: "Music Section"
+            name: "music_section"
+            widget: "object"
+            fields:
+              - {label: "Section Code", name: "code", widget: "string", default: "// 03 DISCOGRAPHY & SOUND"}
+              - {label: "Section Title", name: "title", widget: "string", default: "MUSIC RELEASES"}
+              - {label: "Status Text", name: "status", widget: "string", default: "WEB AUDIO ENGINE READY"}
+              - {label: "Tracklist Title", name: "tracklist_title", widget: "string", default: "RECENT RELEASES"}
+
+          - label: "Tracks"
+            name: "tracks"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string", default: "SUNSET ENERGY"}
+              - {label: "Artist", name: "artist", widget: "string", default: "NEON VOID"}
+              - {label: "Cover URL", name: "cover", widget: "string", default: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80"}
+              - {label: "Style", name: "style", widget: "string", default: "TECHNO"}
+              - {label: "Date", name: "date", widget: "string", default: "2026.08.18"}
+              - {label: "BPM", name: "bpm", widget: "number", default: 132, value_type: "int"}
+              - {label: "Synth Type", name: "synthType", widget: "select", options: ["techno", "house", "cyber"], default: "techno"}
+
+          # --- Events Section ---
+          - label: "Events Section"
+            name: "events_section"
+            widget: "object"
+            fields:
+              - {label: "Section Code", name: "code", widget: "string", default: "// 04 LIVE EXPERIENCE & RAVES"}
+              - {label: "Section Title", name: "title", widget: "string", default: "UPCOMING EVENTS"}
+              - {label: "Status Text", name: "status", widget: "string", default: "TICKET SYSTEM READY"}
+
+          - label: "Events"
+            name: "events"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string", default: "A-ONE SUNSET PARTY"}
+              - {label: "Date", name: "date", widget: "string", default: "2026.08.18"}
+              - {label: "Time", name: "time", widget: "string", default: "18:00 - 02:00"}
+              - {label: "Location", name: "location", widget: "string", default: "BEIJING • 751 PARK"}
+              - {label: "Image URL", name: "image", widget: "string", default: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop&q=80"}
+              - {label: "Map X", name: "x", widget: "number", default: 280, value_type: "int"}
+              - {label: "Map Y", name: "y", widget: "number", default: 150, value_type: "int"}
+
+          # --- Gallery Section ---
+          - label: "Gallery Section"
+            name: "gallery_section"
+            widget: "object"
+            fields:
+              - {label: "Section Code", name: "code", widget: "string", default: "// 05 PAST REVIEWS"}
+              - {label: "Section Title", name: "title", widget: "string", default: "RAVE GALLERY"}
+              - {label: "Description", name: "desc", widget: "string", default: "Moments, lasers, and euphoria captured across warehouse raves."}
+              - {label: "Video Banner Title", name: "video_title", widget: "string", default: "A-ONE FESTIVAL 2025 AFTERMOVIE"}
+              - {label: "Video Banner Subtitle", name: "video_subtitle", widget: "string", default: "CLICK TO WATCH HIGHLIGHT REEL"}
+              - {label: "Video Cover URL", name: "video_cover", widget: "string", default: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&auto=format&fit=crop&q=80"}
+
+          - label: "Gallery Photos"
+            name: "gallery_photos"
+            widget: "list"
+            fields:
+              - {label: "Image URL", name: "src", widget: "string", default: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80"}
+              - {label: "Label", name: "label", widget: "string", default: "RAVE MOMENT"}
+              - {label: "Year", name: "year", widget: "string", default: "2025/2026"}
+
+          # --- Forum Section ---
+          - label: "Forum Section"
+            name: "forum_section"
+            widget: "object"
+            fields:
+              - {label: "Section Code", name: "code", widget: "string", default: "// 06 RAVER COMMUNITY"}
+              - {label: "Section Title", name: "title", widget: "string", default: "COMMUNITY FORUM"}
+              - {label: "New Post Button", name: "new_post_btn", widget: "string", default: "CREATE NEW POST"}
+              - {label: "Chatroom Title", name: "chat_title", widget: "string", default: "LIVE CHATROOM"}
+              - {label: "Online Count", name: "online_count", widget: "string", default: "ONLINE: 248"}
+              - {label: "Chat Placeholder", name: "chat_placeholder", widget: "string", default: "Say something in cyber channel..."}
+
+          - label: "Forum Posts"
+            name: "posts"
+            widget: "list"
+            fields:
+              - {label: "Username", name: "username", widget: "string", default: "CYBER_RAVER"}
+              - {label: "Avatar URL", name: "avatar", widget: "string", default: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80"}
+              - {label: "Title", name: "title", widget: "string", default: "Post Title"}
+              - {label: "Content", name: "content", widget: "text", default: "Post content here."}
+              - {label: "Likes", name: "likes", widget: "number", default: 42, value_type: "int"}
+              - {label: "Comments Count", name: "commentsCount", widget: "number", default: 8, value_type: "int"}
+
+          # --- Navigation ---
+          - label: "Navigation Links"
+            name: "nav_links"
+            widget: "list"
+            fields:
+              - {label: "Label", name: "label", widget: "string", default: "HOME"}
+              - {label: "Href", name: "href", widget: "string", default: "#home"}
+
+          # --- Map Section ---
+          - label: "Map Section"
+            name: "map_section"
+            widget: "object"
+            fields:
+              - {label: "Title", name: "title", widget: "string", default: "A-ONE GLOBAL RAVE RADAR"}
+              - {label: "Description", name: "desc", widget: "string", default: "Interactive Cyber Canvas Radar showing active event coordinates"}
