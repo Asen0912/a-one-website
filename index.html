@@ -1310,12 +1310,15 @@
             lucide.createIcons();
         }
 
-        function likePost(id) {
-            const post = state.posts.find(p => p.id === id);
-            if (post) {
-                post.likes++;
-                renderForumPosts();
-                showToast("Post Liked!");
+        async function likePost(id) {
+            const data = await api('/api/posts/' + id + '/like', 'POST');
+            if (!data.error) {
+                const post = state.posts.find(p => p.id === id);
+                if (post) {
+                    post.likes = data.likes || (post.likes + 1);
+                    renderForumPosts();
+                    showToast("Post Liked!");
+                }
             }
         }
 
@@ -1375,72 +1378,81 @@
             }
         }
 
+        /* === Workers API Helper === */
+        const API = 'https://api.a-one.city';
+        async function api(path, method, body) {
+            const opts = { method, headers: { 'Content-Type': 'application/json' } };
+            const token = localStorage.getItem('aone_token');
+            if (token) opts.headers['Authorization'] = 'Bearer ' + token;
+            if (body) opts.body = JSON.stringify(body);
+            const res = await fetch(API + path, opts);
+            return res.json();
+        }
+
         async function handleLogin(e) {
             e.preventDefault();
             const form = e.target;
-            const email = form.querySelector('input[type="email"]').value;
-            const password = form.querySelector('input[type="password"]').value;
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) {
-                showToast("Login failed: " + error.message);
-                return;
-            }
-            updateAuthUIFromSession(data.user);
+            const email = form.querySelectorAll('input[type="email"]')[0].value;
+            const password = form.querySelectorAll('input[type="password"]')[0].value;
+            const data = await api('/api/login', 'POST', { email, password });
+            if (data.error) { showToast("Login failed: " + data.error); return; }
+            localStorage.setItem('aone_token', data.token);
+            localStorage.setItem('aone_user', JSON.stringify(data.user));
             closeAuthModal();
-            showToast("Welcome back, " + (data.user.user_metadata?.username || data.user.email?.split('@')[0]));
+            updateUIForLoggedIn(data.user);
+            showToast("Welcome back, " + (data.user.username || data.user.email));
         }
 
         async function handleRegister(e) {
             e.preventDefault();
             const form = e.target;
-            const username = form.querySelector('#reg-username').value;
+            const username = form.querySelector('#reg-username') ? form.querySelector('#reg-username').value : '';
             const email = form.querySelectorAll('input[type="email"]')[0].value;
             const password = form.querySelector('#reg-password').value;
             const confirmPassword = form.querySelector('#reg-confirm-password').value;
-            if (password !== confirmPassword) {
-                showToast("Passwords do not match");
-                return;
-            }
-            const { data, error } = await supabase.auth.signUp({
-                email,
-                password,
-                options: { data: { username } }
-            });
-            if (error) {
-                showToast("Registration failed: " + error.message);
-                return;
-            }
-            if (data.user) {
-                updateAuthUIFromSession(data.user);
-                closeAuthModal();
-                showToast("Account created! Welcome, " + username);
-            } else {
-                showToast("Check your email to confirm your account.");
-            }
+            if (password !== confirmPassword) { showToast("Passwords do not match"); return; }
+            const data = await api('/api/register', 'POST', { email, password, username });
+            if (data.error) { showToast("Registration failed: " + data.error); return; }
+            localStorage.setItem('aone_token', data.token);
+            localStorage.setItem('aone_user', JSON.stringify(data.user));
+            closeAuthModal();
+            updateUIForLoggedIn(data.user);
+            showToast("Account created! Welcome, " + (data.user.username || email));
         }
 
-        async function handleLogout() {
-            await supabase.auth.signOut();
-            state.currentUser = null;
+        function handleLogout() {
+            localStorage.removeItem('aone_token');
             localStorage.removeItem('aone_user');
+            state.currentUser = null;
             updateAuthUI();
             showToast("Logged out.");
         }
 
         async function checkSession() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-                updateAuthUIFromSession(session.user);
+            const token = localStorage.getItem('aone_token');
+            const user = JSON.parse(localStorage.getItem('aone_user') || 'null');
+            if (token && user) {
+                const data = await api('/api/user', 'GET');
+                if (data.id) { updateUIForLoggedIn(data); return; }
             }
+            localStorage.removeItem('aone_token');
+            localStorage.removeItem('aone_user');
         }
 
-        function updateAuthUIFromSession(user) {
+        function updateUIForLoggedIn(user) {
             state.currentUser = {
-                username: user.user_metadata?.username || user.email?.split('@')[0] || 'MEMBER',
+                username: user.username || user.email?.split('@')[0] || 'MEMBER',
                 level: 'MEMBER',
                 id: user.id
             };
             localStorage.setItem('aone_user', JSON.stringify(state.currentUser));
+            updateAuthUI();
+        }
+
+        function updateUIForLoggedOut() {
+            state.currentUser = null;
+            localStorage.removeItem('aone_token');
+            localStorage.removeItem('aone_user');
             updateAuthUI();
         }
 
@@ -1481,18 +1493,9 @@
                 return;
             }
 
-            const { data, error } = await supabase
-                .from('posts')
-                .insert([{
-                    title,
-                    content,
-                    username: state.currentUser.username,
-                    user_id: state.currentUser.id,
-                    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80'
-                }])
-                .select();
-            if (error) {
-                showToast("Publish failed: " + error.message);
+            const data = await api('/api/posts', 'POST', { title, content, category: 'general' });
+            if (data.error) {
+                showToast("Publish failed: " + data.error);
                 return;
             }
 
@@ -1504,10 +1507,7 @@
         }
 
         async function loadPosts() {
-            const { data: posts, error } = await supabase
-                .from('posts')
-                .select('*')
-                .order('created_at', { ascending: false });
+            const { posts, error } = await api('/api/posts', 'GET');
             if (error) {
                 console.error('loadPosts error:', error);
                 renderForumPosts();
@@ -1526,11 +1526,7 @@
         }
 
         async function loadComments(postId, containerId) {
-            const { data: comments, error } = await supabase
-                .from('comments')
-                .select('*')
-                .eq('post_id', postId)
-                .order('created_at', { ascending: true });
+            const { comments, error } = await api('/api/posts/' + postId + '/comments', 'GET');
             const container = document.getElementById(containerId);
             if (!container) return;
             if (error || !comments || comments.length === 0) {
@@ -1553,16 +1549,9 @@
                 showToast("Please login first!");
                 return;
             }
-            const { data, error } = await supabase
-                .from('comments')
-                .insert([{
-                    post_id: postId,
-                    content,
-                    username: state.currentUser.username,
-                    user_id: state.currentUser.id
-                }]);
-            if (error) {
-                showToast("Comment failed: " + error.message);
+            const data = await api('/api/posts/' + postId + '/comments', 'POST', { content });
+            if (data.error) {
+                showToast("Comment failed: " + data.error);
                 return;
             }
             input.value = '';
@@ -1619,12 +1608,5 @@
         };
     </script>
 
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <script>
-        const SUPABASE_URL = 'https://mwqkizlgxtxksflufvptb.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_gMcQn5TcAHTRR9JLKxY1_w_sThRWwuR';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    </script>
 </body>
 </html>
