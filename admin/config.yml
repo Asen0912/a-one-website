@@ -1,0 +1,63 @@
+backend:
+  name: github
+  repo: Asen0912/a-one-website
+  branch: main
+  base_url: https://a-one-oauth.asenwei0912.workers.dev
+  auth_endpoint: auth
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "config"
+    label: "Site Config"
+    files:
+      - name: "site_config"
+        label: "Site Configuration"
+        file: "data/site_config.json"
+        fields:
+          - {label: "Site Title", name: "title", widget: "string"}
+          - {label: "Subtitle", name: "subtitle", widget: "string"}
+          - {label: "Description", name: "description", widget: "text", required: false}
+          - {label: "Enable Particles", name: "enable_particles", widget: "boolean", default: true}
+          - label: "Navigation"
+            name: "navigation"
+            widget: "list"
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Link", name: "link", widget: "string"}
+          - label: "Artists"
+            name: "artists"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Role", name: "role", widget: "string"}
+              - {label: "Bio", name: "bio", widget: "text", required: false}
+              - {label: "Image URL", name: "image", widget: "string", required: false}
+          - label: "Releases"
+            name: "releases"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Artist", name: "artist", widget: "string"}
+              - {label: "Genre", name: "genre", widget: "string"}
+              - {label: "Cover URL", name: "cover", widget: "string"}
+              - {label: "Audio URL", name: "audio", widget: "string", required: false}
+          - label: "Events"
+            name: "events"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Location", name: "location", widget: "string"}
+              - {label: "Date", name: "date", widget: "datetime"}
+              - {label: "Ticket URL", name: "ticket_url", widget: "string", required: false}
+  - name: "data"
+    label: "Pages"
+    editor:
+      preview: false
+    files:
+      - name: "index"
+        label: "Homepage"
+        file: "index.html"
+        fields:
+          - {label: "Body", name: "body", widget: "code", default_language: "html"}
