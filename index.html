@@ -179,56 +179,7 @@
             from { text-shadow: 0 0 10px #00ff66, 0 0 20px #00ff66; }
             to { text-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66, 0 0 60px #00ff66; }
         }
-    
-        /* ===== FORUM SUPABASE STYLES ===== */
-        .forum-category-tab {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 8px 16px; border: 1px solid rgba(0,255,102,0.3);
-            font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 1px;
-            color: #888; cursor: pointer; transition: all 0.2s; white-space: nowrap;
-        }
-        .forum-category-tab:hover { color: #00ff66; border-color: #00ff66; }
-        .forum-category-tab.active { background: rgba(0,255,102,0.1); color: #00ff66; border-color: #00ff66; }
-        .forum-post-card {
-            background: rgba(10,15,12,0.75); backdrop-filter: blur(12px);
-            border: 1px solid rgba(0,255,102,0.2); padding: 20px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .forum-post-card:hover { border-color: #00ff66; box-shadow: 0 0 20px rgba(0,255,102,0.15); }
-        .forum-comment-item {
-            border-left: 2px solid rgba(0,255,102,0.3); padding: 8px 12px; margin-bottom: 8px;
-            font-size: 12px; color: #aaa;
-        }
-        .forum-comment-item strong { color: #00ff66; }
-        .forum-loading { text-align: center; padding: 40px; color: #888; font-family: 'Orbitron', sans-serif; font-size: 12px; }
-        .forum-empty { text-align: center; padding: 40px; color: #555; font-family: 'Orbitron', sans-serif; font-size: 12px; }
-        .forum-error { text-align: center; padding: 20px; color: #ff3b3b; font-family: monospace; font-size: 11px; }
-        .forum-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
-        .forum-pagination button {
-            padding: 6px 14px; border: 1px solid rgba(0,255,102,0.3); background: transparent;
-            color: #888; font-family: 'Orbitron', sans-serif; font-size: 11px; cursor: pointer;
-        }
-        .forum-pagination button:hover { color: #00ff66; border-color: #00ff66; }
-        .forum-pagination button.active { background: rgba(0,255,102,0.15); color: #00ff66; border-color: #00ff66; }
-        .forum-pagination button:disabled { opacity: 0.3; cursor: default; }
-        .logout-btn {
-            background: transparent; border: 1px solid rgba(255,59,59,0.4); color: #ff3b3b;
-            font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 1px;
-            padding: 4px 10px; cursor: pointer; margin-left: 6px; transition: all 0.2s;
-        }
-        .logout-btn:hover { background: #ff3b3b; color: #000; }
-        .comment-modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-            z-index: 210; display: none; align-items: center; justify-content: center;
-        }
-        .comment-modal-overlay.show { display: flex; }
-        .comment-modal {
-            background: rgba(10,15,12,0.95); border: 1px solid rgba(0,255,102,0.3);
-            padding: 24px; width: 90%; max-width: 560px; max-height: 80vh; overflow-y: auto;
-            box-shadow: 0 0 30px rgba(0,255,102,0.2);
-        }
-        .comment-modal h3 { font-family: 'Orbitron', sans-serif; color: #00ff66; font-size: 18px; margin-bottom: 16px; }
-</style>
+    </style>
 </head>
 <body class="bg-dark text-white font-sans overflow-x-hidden selection:bg-neon selection:text-black">
 
@@ -306,23 +257,23 @@
             <div id="three-canvas-container" class="absolute inset-0 z-0"></div>
 
             <div class="relative z-10 text-center px-4 max-w-4xl mx-auto pointer-events-auto">
-                <div id="hero-badge" class="inline-block mb-4 px-4 py-1 glass-panel text-neon text-xs font-orbitron tracking-[6px] border border-neon/40">
+                <div class="inline-block mb-4 px-4 py-1 glass-panel text-neon text-xs font-orbitron tracking-[6px] border border-neon/40">
                     FUTURE ELECTRONIC MUSIC LABEL
                 </div>
                 
-                <h1 id="hero-title" class="text-6xl sm:text-8xl md:text-9xl font-black font-orbitron tracking-tight text-white neon-text animate-glow-pulse mb-4">
+                <h1 class="text-6xl sm:text-8xl md:text-9xl font-black font-orbitron tracking-tight text-white neon-text animate-glow-pulse mb-4">
                     A-ONE
                 </h1>
                 
-                <p id="hero-subtitle" class="text-sm sm:text-xl font-orbitron tracking-[12px] text-gray-300 uppercase mb-10">
+                <p class="text-sm sm:text-xl font-orbitron tracking-[12px] text-gray-300 uppercase mb-10">
                     ENTER THE EXPERIENCE
                 </p>
 
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-                    <a id="hero-btn1" href="#music" class="cyber-button px-8 py-4 text-sm font-semibold rounded-none">
+                    <a href="#music" class="cyber-button px-8 py-4 text-sm font-semibold rounded-none">
                         LISTEN RELEASES
                     </a>
-                    <a id="hero-btn2" href="#events" class="px-8 py-4 text-sm font-orbitron tracking-widest text-gray-300 border border-gray-700 hover:border-neon hover:text-neon transition-all">
+                    <a href="#events" class="px-8 py-4 text-sm font-orbitron tracking-widest text-gray-300 border border-gray-700 hover:border-neon hover:text-neon transition-all">
                         UPCOMING RAVES
                     </a>
                 </div>
@@ -330,7 +281,7 @@
                 <!-- Interactive Audio Quick Indicator -->
                 <div class="mt-16 flex items-center justify-center gap-3 text-xs text-gray-400 font-mono">
                     <span class="w-2 h-2 rounded-full bg-neon animate-ping"></span>
-                    <span id="hero-status">3D SOUNDSCAPE & PARTICLES ACTIVE</span>
+                    <span>3D SOUNDSCAPE & PARTICLES ACTIVE</span>
                 </div>
             </div>
 
@@ -346,10 +297,10 @@
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
                     <div>
-                        <span id="about-code" class="text-neon font-orbitron text-sm tracking-widest">// 01 BRAND MANIFESTO</span>
-                        <h2 id="about-title" class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">ABOUT A-ONE</h2>
+                        <span class="text-neon font-orbitron text-sm tracking-widest">// 01 BRAND MANIFESTO</span>
+                        <h2 class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">ABOUT A-ONE</h2>
                     </div>
-                    <div id="about-location" class="mt-4 md:mt-0 font-mono text-xs text-gray-400">
+                    <div class="mt-4 md:mt-0 font-mono text-xs text-gray-400">
                         EST. 2026 / SHANGHAI • BEIJING • TOKYO
                     </div>
                 </div>
@@ -361,16 +312,16 @@
                         <h3 id="typing-text" class="text-2xl sm:text-3xl font-orbitron font-semibold text-neon mb-6 min-h-[70px]">
                             A-ONE IS A FUTURE ELECTRONIC MUSIC LABEL...
                         </h3>
-                        <p id="about-desc-en" class="text-gray-300 leading-relaxed text-base md:text-lg mb-6">
+                        <p class="text-gray-300 leading-relaxed text-base md:text-lg mb-6">
                             Connecting underground frequency with cyber visual aesthetics, A-ONE operates at the intersection of Peak-time Techno, Melodic House, and Futuristic Industrial soundscapes.
                         </p>
-                        <p id="about-desc-cn" class="text-gray-400 leading-relaxed text-sm md:text-base">
+                        <p class="text-gray-400 leading-relaxed text-sm md:text-base">
                             我们创造的不只是音乐，而是一种属于未来城市的沉浸式感官体验。无论是声光交织的赛博派对，还是数码时代的先锋音符，A-ONE 始终站在电子音乐的最前沿。
                         </p>
                     </div>
 
                     <!-- Core Values Grid -->
-                    <div id="values-container" class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="glass-panel p-6 border-l-4 border-l-neon hover:bg-neon/10 transition-colors">
                             <i data-lucide="zap" class="w-8 h-8 text-neon mb-3"></i>
                             <h4 class="font-orbitron font-bold text-lg mb-1">CREATE</h4>
@@ -398,7 +349,7 @@
                 </div>
 
                 <!-- Label Stat Banner -->
-                <div id="stats-container" class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                     <div class="glass-panel p-6 border border-neon/20">
                         <div class="text-4xl font-orbitron font-bold text-neon mb-1">50+</div>
                         <div class="text-xs text-gray-400 font-orbitron tracking-widest">OFFICIAL RELEASES</div>
@@ -424,10 +375,10 @@
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
                     <div>
-                        <span id="artists-code" class="text-neon font-orbitron text-sm tracking-widest">// 02 LABEL ROSTER</span>
-                        <h2 id="artists-title" class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">RESIDENT ARTISTS</h2>
+                        <span class="text-neon font-orbitron text-sm tracking-widest">// 02 LABEL ROSTER</span>
+                        <h2 class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">RESIDENT ARTISTS</h2>
                     </div>
-                    <p id="artists-hint" class="text-gray-400 text-sm max-w-sm mt-4 md:mt-0">
+                    <p class="text-gray-400 text-sm max-w-sm mt-4 md:mt-0">
                         Hover over cards to activate 3D spatial alignment. Click artist to inspect releases.
                     </p>
                 </div>
@@ -444,12 +395,12 @@
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
                     <div>
-                        <span id="music-code" class="text-neon font-orbitron text-sm tracking-widest">// 03 DISCOGRAPHY & SOUND</span>
-                        <h2 id="music-title" class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">MUSIC RELEASES</h2>
+                        <span class="text-neon font-orbitron text-sm tracking-widest">// 03 DISCOGRAPHY & SOUND</span>
+                        <h2 class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">MUSIC RELEASES</h2>
                     </div>
                     <div class="flex items-center gap-2 mt-4 md:mt-0">
                         <span class="w-3 h-3 rounded-full bg-neon animate-pulse"></span>
-                        <span id="music-status" class="font-orbitron text-xs text-neon tracking-widest">WEB AUDIO ENGINE READY</span>
+                        <span class="font-orbitron text-xs text-neon tracking-widest">WEB AUDIO ENGINE READY</span>
                     </div>
                 </div>
 
@@ -506,7 +457,7 @@
 
                     <!-- Right: Tracklist Table -->
                     <div class="lg:col-span-7 flex flex-col">
-                        <h4 id="tracklist-title" class="font-orbitron font-bold text-lg text-white mb-4 flex items-center gap-2">
+                        <h4 class="font-orbitron font-bold text-lg text-white mb-4 flex items-center gap-2">
                             <i data-lucide="disc" class="w-5 h-5 text-neon"></i>
                             RECENT RELEASES
                         </h4>
@@ -524,10 +475,10 @@
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
                     <div>
-                        <span id="events-code" class="text-neon font-orbitron text-sm tracking-widest">// 04 LIVE EXPERIENCE & RAVES</span>
-                        <h2 id="events-title" class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">UPCOMING EVENTS</h2>
+                        <span class="text-neon font-orbitron text-sm tracking-widest">// 04 LIVE EXPERIENCE & RAVES</span>
+                        <h2 class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">UPCOMING EVENTS</h2>
                     </div>
-                    <span id="events-status" class="text-gray-400 text-xs font-mono mt-2 md:mt-0">TICKET SYSTEM READY</span>
+                    <span class="text-gray-400 text-xs font-mono mt-2 md:mt-0">TICKET SYSTEM READY</span>
                 </div>
 
                 <!-- Event Cards Grid -->
@@ -539,11 +490,11 @@
                 <div class="glass-panel p-6 lg:p-10 neon-box">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                         <div>
-                            <h3 id="map-title" class="font-orbitron font-bold text-2xl text-white flex items-center gap-2">
+                            <h3 class="font-orbitron font-bold text-2xl text-white flex items-center gap-2">
                                 <i data-lucide="map-pin" class="w-6 h-6 text-neon"></i>
                                 A-ONE GLOBAL RAVE RADAR
                             </h3>
-                            <p id="map-desc" class="text-xs text-gray-400 font-mono mt-1">Interactive Cyber Canvas Radar showing active event coordinates</p>
+                            <p class="text-xs text-gray-400 font-mono mt-1">Interactive Cyber Canvas Radar showing active event coordinates</p>
                         </div>
                         <div class="flex items-center gap-4 text-xs font-orbitron">
                             <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-neon"></span> ACTIVE HUB</span>
@@ -570,10 +521,10 @@
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
                     <div>
-                        <span id="gallery-code" class="text-neon font-orbitron text-sm tracking-widest">// 05 PAST REVIEWS</span>
-                        <h2 id="gallery-title" class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">RAVE GALLERY</h2>
+                        <span class="text-neon font-orbitron text-sm tracking-widest">// 05 PAST REVIEWS</span>
+                        <h2 class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">RAVE GALLERY</h2>
                     </div>
-                    <p id="gallery-desc" class="text-gray-400 text-sm max-w-sm mt-2 md:mt-0">
+                    <p class="text-gray-400 text-sm max-w-sm mt-2 md:mt-0">
                         Moments, lasers, and euphoria captured across warehouse raves.
                     </p>
                 </div>
@@ -581,13 +532,13 @@
                 <!-- Video Highlight Banner -->
                 <div class="mb-16 glass-panel p-4 border border-neon/30">
                     <div class="relative w-full h-72 sm:h-96 rounded-none overflow-hidden group">
-                        <img id="gallery-video-cover" src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&auto=format&fit=crop&q=80" alt="Video Cover" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&auto=format&fit=crop&q=80" alt="Video Cover" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center p-6">
                             <button onclick="playVideoHighlight()" class="w-20 h-20 rounded-full border-2 border-neon flex items-center justify-center text-neon hover:bg-neon hover:text-black transition-all duration-300 shadow-[0_0_30px_#00ff66] mb-4">
                                 <i data-lucide="play" class="w-8 h-8 ml-1"></i>
                             </button>
-                            <h3 id="gallery-video-title" class="font-orbitron font-bold text-2xl sm:text-3xl text-white">A-ONE FESTIVAL 2025 AFTERMOVIE</h3>
-                            <p id="gallery-video-subtitle" class="text-xs font-orbitron text-neon tracking-widest mt-2">CLICK TO WATCH HIGHLIGHT REEL</p>
+                            <h3 class="font-orbitron font-bold text-2xl sm:text-3xl text-white">A-ONE FESTIVAL 2025 AFTERMOVIE</h3>
+                            <p class="text-xs font-orbitron text-neon tracking-widest mt-2">CLICK TO WATCH HIGHLIGHT REEL</p>
                         </div>
                     </div>
                 </div>
@@ -604,16 +555,15 @@
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
                     <div>
-                        <span id="forum-code" class="text-neon font-orbitron text-sm tracking-widest">// 06 RAVER COMMUNITY</span>
-                        <h2 id="forum-title" class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">COMMUNITY FORUM</h2>
+                        <span class="text-neon font-orbitron text-sm tracking-widest">// 06 RAVER COMMUNITY</span>
+                        <h2 class="text-5xl lg:text-7xl font-orbitron font-bold neon-text mt-2">COMMUNITY FORUM</h2>
                     </div>
-                    <button id="forum-new-post-btn" onclick="openNewPostModal()" class="cyber-button px-6 py-3 text-xs font-bold mt-4 md:mt-0 flex items-center gap-2">
+                    <button onclick="openNewPostModal()" class="cyber-button px-6 py-3 text-xs font-bold mt-4 md:mt-0 flex items-center gap-2">
                         <i data-lucide="plus-circle" class="w-4 h-4"></i>
                         CREATE NEW POST
                     </button>
                 </div>
 
-                <div id="forum-cat-tabs" class="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-2"></div>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     <!-- Left: Main Forum Posts Feed -->
                     <div class="lg:col-span-7 space-y-6" id="forum-posts-container">
@@ -624,7 +574,7 @@
                     <div class="lg:col-span-5">
                         <div class="glass-panel p-6 neon-box sticky top-28">
                             <div class="flex items-center justify-between pb-4 border-b border-neon/20 mb-4">
-                                <h3 id="chatroom-title" class="font-orbitron font-bold text-lg text-white flex items-center gap-2">
+                                <h3 class="font-orbitron font-bold text-lg text-white flex items-center gap-2">
                                     <i data-lucide="message-square" class="w-5 h-5 text-neon"></i>
                                     LIVE CHATROOM
                                 </h3>
@@ -754,23 +704,15 @@
                 </svg>
             </div>
             
-            <div id="footer-text" class="text-xs text-gray-500 font-mono text-center md:text-right">
+            <div class="text-xs text-gray-500 font-mono text-center md:text-right">
                 © 2026 A-ONE ELECTRONIC MUSIC LABEL. ALL RIGHTS RESERVED.<br>
                 POWERED BY THREE.JS • WEB AUDIO API • NEXT ARCHITECTURE
             </div>
         </div>
     </footer>
 
-        <!-- Supabase JS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script>
+    <script>
         // Global Application State
-
-        // Supabase Client Initialization
-        const SUPABASE_URL = 'https://mwqkizlgxtxksflufvptb.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_gMcQn5TcAHTRR9JLKxY1_w_sThRWwuR';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
         const state = {
             currentUser: JSON.parse(localStorage.getItem('aone_user')) || null,
             playingTrackIndex: null,
@@ -781,262 +723,114 @@
             synthGain: null,
             beatInterval: null,
             volume: 0.7,
-            config: null,
-            artists: [],
-            tracks: [],
-            events: [],
-            posts: []
+            artists: [
+                {
+                    id: 1,
+                    name: "NEON VOID",
+                    style: "PEAK-TIME TECHNO",
+                    image: "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800&auto=format&fit=crop&q=80",
+                    bio: "Future electronic sound explorer known for driving 135BPM dark techno basslines and hypnotic visuals.",
+                    tracks: ["SUNSET ENERGY", "CYBER MATRIX"]
+                },
+                {
+                    id: 2,
+                    name: "LUNA X",
+                    style: "MELODIC HOUSE",
+                    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+                    bio: "Melodic night performer creating ethereal synth soundscapes and deep resonant bass.",
+                    tracks: ["CYBER NIGHT", "NEBULOUS FLOW"]
+                },
+                {
+                    id: 3,
+                    name: "ZERO ONE",
+                    style: "CYBER INDUSTRIAL",
+                    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
+                    bio: "Digital music creator fusing glitch soundscapes with metallic hard electro grooves.",
+                    tracks: ["DIGITAL DREAM", "HARDWARE RAVE"]
+                }
+            ],
+            tracks: [
+                {
+                    id: 1,
+                    title: "SUNSET ENERGY",
+                    artist: "NEON VOID",
+                    cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
+                    style: "TECHNO",
+                    date: "2026.08.18",
+                    bpm: 132,
+                    synthType: "techno"
+                },
+                {
+                    id: 2,
+                    title: "CYBER NIGHT",
+                    artist: "LUNA X",
+                    cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80",
+                    style: "HOUSE",
+                    date: "2026.07.01",
+                    bpm: 124,
+                    synthType: "house"
+                },
+                {
+                    id: 3,
+                    title: "DIGITAL DREAM",
+                    artist: "ZERO ONE",
+                    cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80",
+                    style: "ELECTRONIC",
+                    date: "2026.06.20",
+                    bpm: 128,
+                    synthType: "cyber"
+                }
+            ],
+            events: [
+                {
+                    id: 1,
+                    title: "A-ONE SUNSET PARTY",
+                    date: "2026.08.18",
+                    time: "18:00 - 02:00",
+                    location: "BEIJING • 751 PARK",
+                    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop&q=80",
+                    x: 280, y: 150
+                },
+                {
+                    id: 2,
+                    title: "A-ONE WAREHOUSE RAVE",
+                    date: "2026.09.08",
+                    time: "22:00 - 06:00",
+                    location: "SHANGHAI • WAREHOUSE 192",
+                    image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80",
+                    x: 320, y: 220
+                },
+                {
+                    id: 3,
+                    title: "A-ONE FESTIVAL 2026",
+                    date: "2026.10.21",
+                    time: "12:00 - 23:00",
+                    location: "SHENZHEN • FUTIAN CENTER",
+                    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80",
+                    x: 290, y: 280
+                }
+            ],
+            posts: [
+                {
+                    id: 1,
+                    username: "CYBER_RAVER",
+                    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80",
+                    title: "The lasers at A-ONE Sunset Rave were insane last night!",
+                    content: "NEON VOID played an unreleased Techno ID at 2 AM. The crowd went wild. Has anyone recorded the full set?",
+                    likes: 42,
+                    commentsCount: 8
+                },
+                {
+                    id: 2,
+                    username: "TECHNO_QUEEN",
+                    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80",
+                    title: "A-ONE 2026 Label Tracklist Analysis",
+                    content: "The synth layering on 'SUNSET ENERGY' is incredible. Clean sub bass and crisp hi-hats. A-ONE is leading Chinese electronic sound design right now.",
+                    likes: 29,
+                    commentsCount: 5
+                }
+            ]
         };
-
-        // Load user profile from Supabase
-        async function loadCurrentUser(user) {
-            const { data: profile, error } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', user.id)
-                .single();
-
-            state.currentUser = {
-                id: user.id,
-                email: user.email,
-                display_name: profile?.display_name || user.user_metadata?.display_name || 'RAVER',
-                username: profile?.display_name || user.user_metadata?.display_name || 'RAVER',
-                avatar_url: profile?.avatar_url || null
-            };
-            localStorage.setItem('aone_user', JSON.stringify(state.currentUser));
-            updateAuthUI();
-        }
-
-        // Check existing session on load
-        async function checkSession() {
-            const { data: { session }, error } = await supabase.auth.getSession();
-            if (session && session.user) {
-                await loadCurrentUser(session.user);
-            } else {
-                state.currentUser = null;
-                updateAuthUI();
-            }
-        }
-
-        // Load configuration from CMS-managed JSON
-        async function loadSiteConfig() {
-            try {
-                const resp = await fetch('data/site_config.json');
-                const config = await resp.json();
-                state.config = config;
-
-                // Populate state with config data
-                state.artists = config.artists.map((a, i) => ({
-                    id: i + 1,
-                    name: a.name,
-                    style: a.style,
-                    image: a.image,
-                    bio: a.bio,
-                    tracks: [a.top_track]
-                }));
-
-                state.tracks = config.tracks.map((t, i) => ({
-                    id: i + 1,
-                    title: t.title,
-                    artist: t.artist,
-                    cover: t.cover,
-                    style: t.style,
-                    date: t.date,
-                    bpm: t.bpm,
-                    synthType: t.synthType
-                }));
-
-                state.events = config.events.map((e, i) => ({
-                    id: i + 1,
-                    title: e.title,
-                    date: e.date,
-                    time: e.time,
-                    location: e.location,
-                    image: e.image,
-                    x: e.x,
-                    y: e.y
-                }));
-
-                state.posts = config.posts.map((p, i) => ({
-                    id: i + 1,
-                    username: p.username,
-                    avatar: p.avatar,
-                    title: p.title,
-                    content: p.content,
-                    likes: p.likes,
-                    commentsCount: p.commentsCount
-                }));
-
-                // Populate static text elements
-                populateStaticContent(config);
-            } catch (err) {
-                console.warn('Could not load site config, using fallback:', err);
-            }
-        }
-
-        function populateStaticContent(config) {
-            // Meta
-            document.title = config.meta.title;
-
-            // Hero
-            const hero = config.hero;
-            const heroBadge = document.getElementById('hero-badge');
-            const heroTitle = document.getElementById('hero-title');
-            const heroSubtitle = document.getElementById('hero-subtitle');
-            const heroBtn1 = document.getElementById('hero-btn1');
-            const heroBtn2 = document.getElementById('hero-btn2');
-            const heroStatus = document.getElementById('hero-status');
-
-            if (heroBadge) heroBadge.textContent = hero.badge;
-            if (heroTitle) heroTitle.textContent = hero.title;
-            if (heroSubtitle) heroSubtitle.textContent = hero.subtitle;
-            if (heroBtn1) { heroBtn1.textContent = hero.btn1_text; heroBtn1.href = hero.btn1_link; }
-            if (heroBtn2) { heroBtn2.textContent = hero.btn2_text; heroBtn2.href = hero.btn2_link; }
-            if (heroStatus) heroStatus.textContent = hero.status_text;
-
-            // About
-            if (config.about) {
-                const a = config.about;
-                const elCode = document.getElementById('about-code');
-                const elTitle = document.getElementById('about-title');
-                const elLoc = document.getElementById('about-location');
-                const elDescEn = document.getElementById('about-desc-en');
-                const elDescCn = document.getElementById('about-desc-cn');
-                if (elCode) elCode.textContent = a.code;
-                if (elTitle) elTitle.textContent = a.title;
-                if (elLoc) elLoc.textContent = a.location;
-                if (elDescEn) elDescEn.textContent = a.desc_en;
-                if (elDescCn) elDescCn.textContent = a.desc_cn;
-            }
-
-            // Core Values
-            if (config.values) {
-                const vc = document.getElementById('values-container');
-                if (vc) {
-                    vc.innerHTML = config.values.map(v => `
-                        <div class="glass-panel p-6 border-l-4 border-l-neon hover:bg-neon/10 transition-colors">
-                            <i data-lucide="${v.icon}" class="w-8 h-8 text-neon mb-3"></i>
-                            <h4 class="font-orbitron font-bold text-lg mb-1">${v.title}</h4>
-                            <p class="text-xs text-gray-400">${v.desc}</p>
-                        </div>
-                    `).join('');
-                }
-            }
-
-            // Stats
-            if (config.stats) {
-                const sc = document.getElementById('stats-container');
-                if (sc) {
-                    sc.innerHTML = config.stats.map(s => `
-                        <div class="glass-panel p-6 border border-neon/20">
-                            <div class="text-4xl font-orbitron font-bold text-neon mb-1">${s.number}</div>
-                            <div class="text-xs text-gray-400 font-orbitron tracking-widest">${s.label}</div>
-                        </div>
-                    `).join('');
-                }
-            }
-
-            // Artists Section Header
-            if (config.artists_section) {
-                const asec = config.artists_section;
-                const elCode = document.getElementById('artists-code');
-                const elTitle = document.getElementById('artists-title');
-                const elHint = document.getElementById('artists-hint');
-                if (elCode) elCode.textContent = asec.code;
-                if (elTitle) elTitle.textContent = asec.title;
-                if (elHint) elHint.textContent = asec.hint;
-            }
-
-            // Music Section Header
-            if (config.music_section) {
-                const msec = config.music_section;
-                const elCode = document.getElementById('music-code');
-                const elTitle = document.getElementById('music-title');
-                const elStatus = document.getElementById('music-status');
-                const elTL = document.getElementById('tracklist-title');
-                if (elCode) elCode.textContent = msec.code;
-                if (elTitle) elTitle.textContent = msec.title;
-                if (elStatus) elStatus.textContent = msec.status;
-                if (elTL) elTL.textContent = msec.tracklist_title;
-            }
-
-            // Events Section Header
-            if (config.events_section) {
-                const esec = config.events_section;
-                const elCode = document.getElementById('events-code');
-                const elTitle = document.getElementById('events-title');
-                const elStatus = document.getElementById('events-status');
-                if (elCode) elCode.textContent = esec.code;
-                if (elTitle) elTitle.textContent = esec.title;
-                if (elStatus) elStatus.textContent = esec.status;
-            }
-
-            // Gallery Section
-            if (config.gallery_section) {
-                const gsec = config.gallery_section;
-                const elCode = document.getElementById('gallery-code');
-                const elTitle = document.getElementById('gallery-title');
-                const elDesc = document.getElementById('gallery-desc');
-                const elVTitle = document.getElementById('gallery-video-title');
-                const elVSub = document.getElementById('gallery-video-subtitle');
-                if (elCode) elCode.textContent = gsec.code;
-                if (elTitle) elTitle.textContent = gsec.title;
-                if (elDesc) elDesc.textContent = gsec.desc;
-                if (elVTitle) elVTitle.textContent = gsec.video_title;
-                if (elVSub) elVSub.textContent = gsec.video_subtitle;
-                const elVCover = document.getElementById('gallery-video-cover');
-                if (elVCover && gsec.video_cover) elVCover.src = gsec.video_cover;
-            }
-
-            // Forum Section
-            if (config.forum_section) {
-                const fsec = config.forum_section;
-                const elCode = document.getElementById('forum-code');
-                const elTitle = document.getElementById('forum-title');
-                const elBtn = document.getElementById('forum-new-post-btn');
-                const elChat = document.getElementById('chatroom-title');
-                const elInput = document.getElementById('chat-input');
-                if (elCode) elCode.textContent = fsec.code;
-                if (elTitle) elTitle.textContent = fsec.title;
-                if (elBtn) elBtn.innerHTML = elBtn.innerHTML.replace(/CREATE NEW POST.*/, '<i data-lucide="plus-circle" class="w-4 h-4"></i>' + fsec.new_post_btn);
-                if (elInput) elInput.placeholder = fsec.chat_placeholder;
-            }
-
-            // Map Section
-            if (config.map_section) {
-                const msec = config.map_section;
-                const elTitle = document.getElementById('map-title');
-                const elDesc = document.getElementById('map-desc');
-                if (elTitle) elTitle.innerHTML = elTitle.innerHTML.replace(/A-ONE GLOBAL RAVE RADAR/, msec.title);
-                if (elDesc) elDesc.textContent = msec.desc;
-            }
-
-            // Navigation
-            if (config.nav_links) {
-                const navContainer = document.querySelector('header nav');
-                const mobileNav = document.getElementById('mobile-menu');
-                if (navContainer) {
-                    navContainer.innerHTML = config.nav_links.map(l =>
-                        `<a href="${l.href}" class="hover:text-neon transition-colors duration-200">${l.label}</a>`
-                    ).join('
-');
-                }
-                if (mobileNav) {
-                    mobileNav.innerHTML = config.nav_links.map(l =>
-                        `<a href="${l.href}" onclick="toggleMobileMenu()" class="hover:text-neon">${l.label}</a>`
-                    ).join('
-');
-                }
-            }
-
-            // Footer
-            if (config.meta) {
-                const ft = document.getElementById('footer-text');
-                if (ft) {
-                    ft.innerHTML = `${config.meta.footer_copyright}<br>${config.meta.footer_powered}`;
-                }
-            }
-        }
 
         // Initialize Lucide Icons
         lucide.createIcons();
@@ -1462,208 +1256,74 @@
         /* Gallery Photos Generator */
         function renderGallery() {
             const container = document.getElementById('gallery-grid');
-            if (!container) return;
+            const photos = [
+                "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80"
+            ];
 
-            if (state.config && state.config.gallery_photos) {
-                container.innerHTML = state.config.gallery_photos.map(photo => `
-                    <div class="glass-panel border border-neon/20 overflow-hidden group neon-box-hover mb-6 inline-block w-full">
-                        <img src="${photo.src}" class="w-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="p-4 flex justify-between items-center text-xs font-orbitron">
-                            <span class="text-neon">${photo.label}</span>
-                            <span class="text-gray-500">${photo.year}</span>
-                        </div>
+            container.innerHTML = photos.map((src, i) => `
+                <div class="glass-panel border border-neon/20 overflow-hidden group neon-box-hover mb-6 inline-block w-full">
+                    <img src="${src}" class="w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="p-4 flex justify-between items-center text-xs font-orbitron">
+                        <span class="text-neon">RAVE MOMENT #${i + 1}</span>
+                        <span class="text-gray-500">2025/2026</span>
                     </div>
-                `).join('');
-            }
-        }
-
-        /* ===== SUPABASE FORUM LOGIC ===== */
-        let forumCategories = [];
-        let forumPosts = [];
-        let currentCategoryId = null;
-        let forumPage = 0;
-        const POSTS_PER_PAGE = 5;
-
-        async function loadCategories() {
-            const catTabs = document.getElementById('forum-cat-tabs');
-            if (!catTabs) return;
-            catTabs.innerHTML = '<span class="forum-category-tab active" data-cat="all">ALL</span>';
-
-            const { data, error } = await supabase
-                .from('categories').select('*').order('name');
-            if (error) { console.warn('Categories load error:', error); return; }
-            forumCategories = data || [];
-            forumCategories.forEach(cat => {
-                const tab = document.createElement('span');
-                tab.className = 'forum-category-tab';
-                tab.setAttribute('data-cat', cat.id);
-                tab.innerText = cat.name || 'CATEGORY';
-                tab.onclick = () => switchCategory(cat.id, tab);
-                catTabs.appendChild(tab);
-            });
-            switchCategory(null, catTabs.querySelector('.forum-category-tab'));
-        }
-
-        async function switchCategory(catId, tabEl) {
-            currentCategoryId = catId;
-            forumPage = 0;
-            document.querySelectorAll('.forum-category-tab').forEach(t => t.classList.remove('active'));
-            if (tabEl) tabEl.classList.add('active');
-            await loadPosts();
-        }
-
-        async function loadPosts(page = 0) {
-            forumPage = page;
-            const container = document.getElementById('forum-posts-container');
-            container.innerHTML = '<div class="forum-loading"><span class="animate-pulse">LOADING FORUM DATA...</span></div>';
-
-            let query = supabase.from('posts').select('*, profiles(display_name, avatar_url), categories(name)', { count: 'exact' });
-
-            if (currentCategoryId) {
-                query = query.eq('category_id', currentCategoryId);
-            }
-            query = query.order('created_at', { ascending: false })
-                .range(page * POSTS_PER_PAGE, (page + 1) * POSTS_PER_PAGE - 1);
-
-            const { data, error, count } = await query;
-            if (error) {
-                container.innerHTML = '<div class="forum-error">// ERROR: ' + error.message + '</div>';
-                return;
-            }
-            forumPosts = data || [];
-            const totalPages = Math.ceil((count || 0) / POSTS_PER_PAGE);
-
-            if (!forumPosts.length) {
-                container.innerHTML = '<div class="forum-empty">// NO POSTS FOUND IN THIS CATEGORY</div>';
-            } else {
-                container.innerHTML = forumPosts.map(post => {
-                    const displayName = post.profiles?.display_name || 'ANONYMOUS';
-                    const avatar = post.profiles?.avatar_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80';
-                    const catName = post.categories?.name || '';
-                    const date = post.created_at ? new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
-                    return `
-                    <div class="forum-post-card">
-                        <div class="flex items-center gap-3 mb-4">
-                            <img src="${avatar}" class="w-10 h-10 rounded-full border border-neon/50 object-cover">
-                            <div>
-                                <h5 class="font-orbitron font-bold text-sm text-white">${displayName}</h5>
-                                <span class="text-[10px] text-neon font-mono">A-ONE MEMBER${catName ? ' • ' + catName : ''}${date ? ' • ' + date : ''}</span>
-                            </div>
-                        </div>
-                        <h4 class="font-orbitron font-bold text-lg text-neon mb-2">${post.title || 'Untitled'}</h4>
-                        <p class="text-gray-300 text-sm leading-relaxed mb-4">${post.content || ''}</p>
-                        <div class="flex items-center gap-6 text-xs font-orbitron text-gray-400">
-                            <button onclick="likePostSupabase('${post.id}')" class="flex items-center gap-1 hover:text-neon">
-                                <i data-lucide="heart" class="w-4 h-4 text-neon"></i> ${post.likes || 0} LIKES
-                            </button>
-                            <button onclick="openCommentModal('${post.id}')" class="flex items-center gap-1 hover:text-neon">
-                                <i data-lucide="message-square" class="w-4 h-4 text-neon"></i> COMMENTS
-                            </button>
-                        </div>
-                    </div>
-                `}).join('');
-
-                // Pagination
-                if (totalPages > 1) {
-                    let pagHTML = '<div class="forum-pagination">';
-                    pagHTML += `<button ${page === 0 ? 'disabled' : ''} onclick="loadPosts(${page - 1})">◀ PREV</button>`;
-                    for (let i = 0; i < totalPages; i++) {
-                        pagHTML += `<button class="${i === page ? 'active' : ''}" onclick="loadPosts(${i})">${i + 1}</button>`;
-                    }
-                    pagHTML += `<button ${page >= totalPages - 1 ? 'disabled' : ''} onclick="loadPosts(${page + 1})">NEXT ▶</button>`;
-                    pagHTML += '</div>';
-                    container.innerHTML += pagHTML;
-                }
-            }
-            lucide.createIcons();
-        }
-
-        async function likePostSupabase(postId) {
-            if (!state.currentUser) { showToast('Login required to like posts', 'error'); return; }
-            const { error } = await supabase.rpc('increment_likes', { post_id: postId });
-            if (error) { showToast(error.message, 'error'); return; }
-            await loadPosts(forumPage);
-        }
-
-        async function openCommentModal(postId) {
-            let modal = document.getElementById('comment-modal-overlay');
-            if (!modal) {
-                modal = document.createElement('div');
-                modal.id = 'comment-modal-overlay';
-                modal.className = 'comment-modal-overlay';
-                modal.innerHTML = `
-                    <div class="comment-modal">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xl font-orbitron font-bold text-neon">// COMMENTS</h3>
-                            <button onclick="closeCommentModal()" class="text-gray-400 hover:text-neon text-xl">&times;</button>
-                        </div>
-                        <div id="comment-list" class="max-h-64 overflow-y-auto mb-4"></div>
-                        <div class="flex gap-2">
-                            <input type="text" id="comment-input" placeholder="Write a comment..." class="flex-1 bg-black/80 border border-neon/30 p-3 text-xs text-white focus:outline-none focus:border-neon font-mono">
-                            <button onclick="submitComment('${postId}')" class="cyber-button px-4 py-2 text-xs font-bold">POST</button>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(modal);
-            }
-            modal.classList.add('show');
-            modal.setAttribute('data-post-id', postId);
-            await loadComments(postId);
-            modal.addEventListener('click', function(e) { if (e.target === this) closeCommentModal(); });
-        }
-
-        function closeCommentModal() {
-            const modal = document.getElementById('comment-modal-overlay');
-            if (modal) modal.classList.remove('show');
-        }
-
-        async function loadComments(postId) {
-            const list = document.getElementById('comment-list');
-            list.innerHTML = '<div class="forum-loading">Loading comments...</div>';
-            const { data, error } = await supabase
-                .from('comments')
-                .select('*, profiles(display_name)')
-                .eq('post_id', postId)
-                .order('created_at', { ascending: true });
-            if (error) { list.innerHTML = '<div class="forum-error">Failed to load comments</div>'; return; }
-            if (!data || !data.length) {
-                list.innerHTML = '<div class="forum-empty">No comments yet. Be the first!</div>';
-                return;
-            }
-            list.innerHTML = data.map(c => `
-                <div class="forum-comment-item">
-                    <strong>${c.profiles?.display_name || 'ANONYMOUS'}</strong>
-                    <span style="color:#555;font-size:10px"> • ${new Date(c.created_at).toLocaleString()}</span>
-                    <p style="margin-top:4px">${c.content || ''}</p>
                 </div>
             `).join('');
         }
 
-        async function submitComment(postId) {
-            if (!state.currentUser) { showToast('Login required to comment', 'error'); return; }
-            const input = document.getElementById('comment-input');
-            const content = input.value.trim();
-            if (!content) return;
-            const { error } = await supabase.from('comments').insert({
-                post_id: postId, user_id: state.currentUser.id, content
-            });
-            if (error) { showToast(error.message, 'error'); return; }
-            input.value = '';
-            await loadComments(postId);
+        /* Forum & Live Chat Logic */
+        function renderForumPosts() {
+            const container = document.getElementById('forum-posts-container');
+            container.innerHTML = state.posts.map(post => `
+                <div class="glass-panel p-6 border border-neon/20 neon-box-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="${post.avatar}" class="w-10 h-10 rounded-full border border-neon">
+                        <div>
+                            <h5 class="font-orbitron font-bold text-sm text-white">${post.username}</h5>
+                            <span class="text-[10px] text-neon font-mono">A-ONE MEMBER</span>
+                        </div>
+                    </div>
+                    <h4 class="font-orbitron font-bold text-lg text-neon mb-2">${post.title}</h4>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">${post.content}</p>
+                    <div class="flex items-center gap-6 text-xs font-orbitron text-gray-400">
+                        <button onclick="likePost(${post.id})" class="flex items-center gap-1 hover:text-neon">
+                            <i data-lucide="heart" class="w-4 h-4 text-neon"></i> ${post.likes} LIKES
+                        </button>
+                        <span class="flex items-center gap-1">
+                            <i data-lucide="message-square" class="w-4 h-4 text-neon"></i> ${post.commentsCount} COMMENTS
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
         }
 
-        // likePost replaced by likePostSupabase (Supabase RPC)
+        function likePost(id) {
+            const post = state.posts.find(p => p.id === id);
+            if (post) {
+                post.likes++;
+                renderForumPosts();
+                showToast("Post Liked!");
+            }
+        }
 
         function sendChatMessage() {
-            if (!state.currentUser) { showToast('Login required to chat', 'error'); return; }
             const input = document.getElementById('chat-input');
             const msg = input.value.trim();
             if (!msg) return;
+
             const chatFeed = document.getElementById('chat-feed');
-            const username = state.currentUser.display_name || state.currentUser.username || 'RAVER';
+            const username = state.currentUser ? state.currentUser.username : "GUEST_RAVER";
+
             const msgEl = document.createElement('div');
             msgEl.className = 'glass-panel p-2 border border-neon/20';
             msgEl.innerHTML = `<span class="text-neon font-bold">[${username}]:</span> <span class="text-gray-200">${msg}</span>`;
+            
             chatFeed.appendChild(msgEl);
             chatFeed.scrollTop = chatFeed.scrollHeight;
             input.value = '';
@@ -1671,30 +1331,13 @@
 
         function updateAuthUI() {
             const btnText = document.getElementById('user-btn-text');
-            const btnContainer = btnText.parentElement;
-            // Remove existing logout button
-            const existingLogout = btnContainer.querySelector('.logout-btn');
-            if (existingLogout) existingLogout.remove();
-
+            const btn = document.getElementById('user-status-btn');
             if (state.currentUser) {
-                btnText.innerText = state.currentUser.display_name || state.currentUser.username || 'RAVER';
-                // Add logout button
-                const logoutBtn = document.createElement('button');
-                logoutBtn.className = 'logout-btn';
-                logoutBtn.innerText = 'LOGOUT';
-                logoutBtn.onclick = async function(e) {
-                    e.stopPropagation();
-                    await supabase.auth.signOut();
-                    state.currentUser = null;
-                    localStorage.removeItem('aone_user');
-                    updateAuthUI();
-                    showToast('Logged out');
-                };
-                btnContainer.appendChild(logoutBtn);
-                btnContainer.closest('button').onclick = null; // disable auth modal on click
+                btnText.innerText = `${state.currentUser.username} (${state.currentUser.level})`;
+                btn.setAttribute('onclick', 'handleLogout()');
             } else {
                 btnText.innerText = 'LOGIN';
-                btnContainer.closest('button').onclick = function() { openAuthModal(); };
+                btn.setAttribute('onclick', 'openAuthModal()');
             }
         }
 
@@ -1728,47 +1371,65 @@
         async function handleLogin(e) {
             e.preventDefault();
             const form = e.target;
-            const email = form.querySelector('input[type="email"]').value.trim();
-            const password = form.querySelector('input[type="password"]').value.trim();
-            if (!email || !password) { showToast('Please fill all fields', 'error'); return; }
-            
+            const email = form.querySelector('input[type="email"]').value;
+            const password = form.querySelector('input[type="password"]').value;
             const { data, error } = await supabase.auth.signInWithPassword({ email, password });
             if (error) {
-                showToast(error.message || 'Login failed', 'error');
+                showToast("Login failed: " + error.message);
                 return;
             }
-            if (data.user) {
-                await loadCurrentUser(data.user);
-                closeAuthModal();
-                showToast('Welcome back, ' + (state.currentUser?.display_name || 'Raver') + '!');
-                form.reset();
-            }
+            updateAuthUIFromSession(data.user);
+            closeAuthModal();
+            showToast("Welcome back, " + (data.user.user_metadata?.username || data.user.email?.split('@')[0]));
         }
 
         async function handleRegister(e) {
             e.preventDefault();
-            const username = document.getElementById('reg-username').value.trim();
             const form = e.target;
-            const email = form.querySelector('input[type="email"]').value.trim();
-            const password = form.querySelector('input[type="password"]').value.trim();
-            if (!username || !email || !password) { showToast('Please fill all fields', 'error'); return; }
-            if (password.length < 6) { showToast('Password must be at least 6 characters', 'error'); return; }
-
+            const username = form.querySelector('#reg-username').value;
+            const email = form.querySelectorAll('input[type="email"]')[0].value;
+            const password = form.querySelectorAll('input[type="password"]')[0].value;
             const { data, error } = await supabase.auth.signUp({
-                email, password,
-                options: { data: { display_name: username } }
+                email,
+                password,
+                options: { data: { username } }
             });
             if (error) {
-                showToast(error.message || 'Registration failed', 'error');
+                showToast("Registration failed: " + error.message);
                 return;
             }
             if (data.user) {
-                await loadCurrentUser(data.user);
+                updateAuthUIFromSession(data.user);
                 closeAuthModal();
-                showToast('Account created! Welcome, ' + username + '!');
-                form.reset();
-                document.getElementById('reg-username').value = '';
+                showToast("Account created! Welcome, " + username);
+            } else {
+                showToast("Check your email to confirm your account.");
             }
+        }
+
+        async function handleLogout() {
+            await supabase.auth.signOut();
+            state.currentUser = null;
+            localStorage.removeItem('aone_user');
+            updateAuthUI();
+            showToast("Logged out.");
+        }
+
+        async function checkSession() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+                updateAuthUIFromSession(session.user);
+            }
+        }
+
+        function updateAuthUIFromSession(user) {
+            state.currentUser = {
+                username: user.user_metadata?.username || user.email?.split('@')[0] || 'MEMBER',
+                level: 'MEMBER',
+                id: user.id
+            };
+            localStorage.setItem('aone_user', JSON.stringify(state.currentUser));
+            updateAuthUI();
         }
 
         /* Modal Handlers */
@@ -1796,23 +1457,105 @@
         }
 
         async function submitNewPost() {
-            if (!state.currentUser) { showToast('Please login first', 'error'); openAuthModal(); return; }
-            const title = document.getElementById('new-post-title').value.trim();
-            const content = document.getElementById('new-post-content').value.trim();
-            if (!title || !content) { showToast('Please complete post title and content!', 'error'); return; }
+            const title = document.getElementById('new-post-title').value;
+            const content = document.getElementById('new-post-content').value;
 
-            const { error } = await supabase.from('posts').insert({
-                title, content,
-                user_id: state.currentUser.id,
-                category_id: currentCategoryId || null,
-                likes: 0
-            });
-            if (error) { showToast(error.message, 'error'); return; }
+            if (!title || !content) {
+                showToast("Please complete post title and content!");
+                return;
+            }
+            if (!state.currentUser) {
+                showToast("Please login first!");
+                return;
+            }
+
+            const { data, error } = await supabase
+                .from('posts')
+                .insert([{
+                    title,
+                    content,
+                    username: state.currentUser.username,
+                    user_id: state.currentUser.id,
+                    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80'
+                }])
+                .select();
+            if (error) {
+                showToast("Publish failed: " + error.message);
+                return;
+            }
+
+            closePostModal();
             document.getElementById('new-post-title').value = '';
             document.getElementById('new-post-content').value = '';
-            closePostModal();
-            await loadPosts(0);
-            showToast("Post published to community!");
+            showToast("Post published!");
+            loadPosts();
+        }
+
+        async function loadPosts() {
+            const { data: posts, error } = await supabase
+                .from('posts')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (error) {
+                console.error('loadPosts error:', error);
+                renderForumPosts();
+                return;
+            }
+            state.posts = (posts || []).map(p => ({
+                id: p.id,
+                username: p.username || 'ANONYMOUS',
+                avatar: p.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80',
+                title: p.title,
+                content: p.content,
+                likes: p.likes || 0,
+                commentsCount: p.comments_count || 0
+            }));
+            renderForumPosts();
+        }
+
+        async function loadComments(postId, containerId) {
+            const { data: comments, error } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('post_id', postId)
+                .order('created_at', { ascending: true });
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (error || !comments || comments.length === 0) {
+                container.innerHTML = '<p class="text-xs text-gray-500 font-mono">No comments yet.</p>';
+                return;
+            }
+            container.innerHTML = comments.map(c => `
+                <div class="border-t border-neon/10 pt-2">
+                    <span class="text-neon text-[10px] font-orbitron">${c.username || 'ANONYMOUS'}</span>
+                    <p class="text-gray-300 text-xs mt-1">${c.content}</p>
+                </div>
+            `).join('');
+        }
+
+        async function submitComment(postId, inputId, containerId) {
+            const input = document.getElementById(inputId);
+            const content = input.value.trim();
+            if (!content) return;
+            if (!state.currentUser) {
+                showToast("Please login first!");
+                return;
+            }
+            const { data, error } = await supabase
+                .from('comments')
+                .insert([{
+                    post_id: postId,
+                    content,
+                    username: state.currentUser.username,
+                    user_id: state.currentUser.id
+                }]);
+            if (error) {
+                showToast("Comment failed: " + error.message);
+                return;
+            }
+            input.value = '';
+            loadComments(postId, containerId);
+            showToast("Comment added!");
         }
 
         function toggleMobileMenu() {
@@ -1825,46 +1568,47 @@
             showToast("Playing A-ONE Festival 2025 Aftermovie Highlight!");
         }
 
-        window.onload = async function() {
-            // 0. Load CMS-managed site config first
-            await loadSiteConfig();
-
+        window.onload = function() {
             // 1. Initialize 3D Three.js particle scene
             initThreeJS();
 
-            // 2. Check Supabase session
-            await checkSession();
-
-            // 3. Load forum categories & posts
-            await loadCategories();
-
-            // 4. Render dynamic content blocks
+            // 2. Render dynamic content blocks
             renderArtists();
             loadTrack(0);
             renderEvents();
             renderGallery();
-            lucide.createIcons();
+            renderForumPosts();
+            updateAuthUI();
 
             // 3. Initialize Canvas visualizer & Map
             renderVisualizer();
             initCyberMap();
 
+            // 4. Check Supabase session & load forum posts
+            checkSession().then(() => loadPosts());
+
             // Typing effect simulation
             const typingTextEl = document.getElementById('typing-text');
-            if (typingTextEl && state.config && state.config.about) {
-                const fullText = state.config.about.typing_text;
-                let charIndex = 0;
+            const fullText = "A-ONE IS A FUTURE ELECTRONIC MUSIC LABEL...";
+            let charIndex = 0;
 
-                function typeWriter() {
-                    if (charIndex < fullText.length) {
-                        typingTextEl.innerText = fullText.substring(0, charIndex + 1);
-                        charIndex++;
-                        setTimeout(typeWriter, 80);
-                    }
+            function typeWriter() {
+                if (charIndex < fullText.length) {
+                    typingTextEl.innerText = fullText.substring(0, charIndex + 1);
+                    charIndex++;
+                    setTimeout(typeWriter, 80);
                 }
-                typeWriter();
             }
+            typeWriter();
         };
+    </script>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+        const SUPABASE_URL = 'https://mwqkizlgxtxksflufvptb.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_gMcQn5TcAHTRR9JLKxY1_w_sThRWwuR';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     </script>
 </body>
 </html>
