@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-ONE CONTROL CENTER</title>
+<style>
+  :root {
+    --black: #050505;
+    --dark: #080808;
+    --panel: #111111;
+    --grid: #1A1A1A;
+    --neon: #00FF66;
+    --text: #FFFFFF;
+    --muted: #888888;
+    --border: #1f1f1f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* Login screen */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #0a0a0a 0%, #000 70%);
+    position: relative;
+    overflow: hidden;
+  }
+  #login-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,102,0.03) 2px, rgba(0,255,102,0.03) 4px);
+    pointer-events: none;
+  }
+  .login-box {
+    position: relative;
+    z-index: 1;
+    width: 420px;
+    background: var(--panel);
+    border: 1px solid var(--neon);
+    border-radius: 16px;
+    padding: 48px;
+    animation: loginPulse 3s ease-in-out infinite;
+  }
+  @keyframes loginPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0,255,102,0.1); }
+    50% { box-shadow: 0 0 40px rgba(0,255,102,0.25); }
+  }
+  .login-box h1 {
+    font-size: 48px;
+    color: var(--neon);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .login-box .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 32px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .login-box input {
+    width: 100%;
+    background: var(--black);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .login-box input:focus { border-color: var(--neon); }
+  .login-box .error-msg {
+    color: #ff4444;
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: none;
+  }
+  .btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--neon);
+    color: #000;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 3px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-sm {
+    padding: 6px 16px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-radius: 6px;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--neon);
+    color: var(--neon);
+  }
+  .btn-outline:hover { background: var(--neon); color: #000; }
+  .btn-danger {
+    background: transparent;
+    border: 1px solid #ff4444;
+    color: #ff4444;
+  }
+  .btn-danger:hover { background: #ff4444; color: #000; }
+
+  /* Layout */
+  #app-screen { display: none; }
+  #app-screen.active { display: flex; }
+  #login-screen.hidden { display: none; }
+
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background: var(--dark);
+    border-right: 1px solid rgba(0,255,102,0.2);
+    padding: 32px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+  }
+  .sidebar h1 {
+    font-size: 32px;
+    color: var(--neon);
+    font-weight: 700;
+    padding: 0 24px 32px;
+  }
+  .sidebar nav { display: flex; flex-direction: column; }
+  .sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+  }
+  .sidebar nav a:hover,
+  .sidebar nav a.active {
+    color: var(--neon);
+    border-left-color: var(--neon);
+    background: rgba(0,255,102,0.05);
+  }
+  .sidebar nav a .icon { font-size: 16px; width: 20px; text-align: center; }
+
+  /* Main */
+  .main {
+    flex: 1;
+    margin-left: 260px;
+    padding: 40px;
+    min-height: 100vh;
+  }
+  .main h2 {
+    font-size: 40px;
+    color: var(--neon);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .main .section-subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+  }
+
+  /* Dashboard */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--neon);
+    margin-bottom: 32px;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    background: var(--neon);
+    border-radius: 50%;
+    animation: blink 2s infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .kpi-card {
+    background: var(--panel);
+    border: 1px solid rgba(0,255,102,0.2);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .kpi-card .label { color: var(--muted); font-size: 12px; letter-spacing: 1px; margin-bottom: 12px; }
+  .kpi-card .value { font-size: 36px; font-weight: 700; }
+  .kpi-card .growth { color: var(--neon); font-size: 13px; margin-top: 8px; }
+
+  /* Charts placeholder */
+  .chart-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .chart-box h3 { font-size: 18px; margin-bottom: 20px; color: var(--text); }
+
+  /* Tables */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 12px 16px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--grid);
+    font-size: 14px;
+  }
+  .data-table tr:hover td { background: rgba(0,255,102,0.02); }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .badge-vip { background: var(--neon); color: #000; }
+  .badge-core { background: #7c3aed; color: #fff; }
+  .badge-member { background: #374151; color: #fff; }
+  .badge-active { background: rgba(0,255,102,0.15); color: var(--neon); }
+  .badge-banned { background: rgba(255,68,68,0.15); color: #ff4444; }
+
+  /* Actions */
+  .action-btns { display: flex; gap: 8px; }
+  .action-btns button { white-space: nowrap; }
+
+  /* Sections */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* Bar chart simple */
+  .bar-chart { display: flex; align-items: flex-end; gap: 24px; height: 200px; padding: 20px 0; }
+  .bar-col { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+  .bar { width: 48px; background: var(--neon); border-radius: 4px 4px 0 0; transition: height 0.6s; }
+  .bar-label { font-size: 11px; color: var(--muted); }
+
+  /* Search */
+  .search-bar {
+    display: flex; gap: 12px; margin-bottom: 24px;
+    align-items: center;
+  }
+  .search-bar input {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 10px 16px;
+    color: #fff;
+    border-radius: 8px;
+    width: 280px;
+    font-size: 13px;
+    outline: none;
+  }
+  .search-bar input:focus { border-color: var(--neon); }
+
+  /* Topbar */
+  .topbar {
+    display: flex; justify-content: flex-end; align-items: center;
+    padding: 0 40px 20px; gap: 16px;
+  }
+  .topbar .admin-label { color: var(--neon); font-size: 13px; }
+
+  /* Forum cards */
+  .forum-cards { display: flex; flex-direction: column; gap: 12px; }
+  .forum-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .forum-card h4 { font-size: 16px; margin-bottom: 4px; }
+  .forum-card .meta { font-size: 12px; color: var(--muted); }
+
+  /* Responsive */
+  @media (max-width: 1200px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) {
+    .sidebar { width: 200px; }
+    .main { margin-left: 200px; padding: 24px; }
+    .kpi-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>A-ONE</h1>
+    <p class="subtitle">CONTROL CENTER</p>
+    <input type="email" id="login-email" placeholder="Email" />
+    <input type="password" id="login-password" placeholder="Password" />
+    <p class="error-msg" id="login-error">Invalid credentials</p>
+    <button class="btn" onclick="doLogin()">LOGIN</button>
+  </div>
+</div>
+
+<!-- APP SCREEN -->
+<div id="app-screen">
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1>A-ONE</h1>
+      <nav id="sidebar-nav">
+        <a href="#" data-section="dashboard" class="active"><span class="icon">◉</span> Dashboard</a>
+        <a href="#" data-section="artists"><span class="icon">★</span> Artists</a>
+        <a href="#" data-section="music"><span class="icon">♫</span> Music</a>
+        <a href="#" data-section="events"><span class="icon">◌</span> Events</a>
+        <a href="#" data-section="tickets"><span class="icon">◎</span> Tickets</a>
+        <a href="#" data-section="users"><span class="icon">○</span> Users</a>
+        <a href="#" data-section="forum"><span class="icon">◍</span> Forum</a>
+        <a href="#" data-section="settings"><span class="icon">⚙</span> Settings</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="topbar">
+        <span class="admin-label">ADMIN ●</span>
+        <button class="btn btn-outline btn-sm" onclick="doLogout()">LOGOUT</button>
+      </div>
+
+      <!-- Dashboard -->
+      <section class="section active" id="section-dashboard">
+        <h2>CONTROL CENTER</h2>
+        <div class="status-bar"><span class="status-dot"></span> SYSTEM ONLINE</div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><p class="label">USERS</p><p class="value">12,548</p><p class="growth">↑ 12.8%</p></div>
+          <div class="kpi-card"><p class="label">STREAMS</p><p class="value">238K</p><p class="growth">↑ 21%</p></div>
+          <div class="kpi-card"><p class="label">EVENTS</p><p class="value">36</p><p class="growth">↑ 8%</p></div>
+          <div class="kpi-card"><p class="label">REVENUE</p><p class="value">$86K</p><p class="growth">↑ 18%</p></div>
+        </div>
+        <div class="chart-box">
+          <h3>MUSIC ANALYTICS — Streams</h3>
+          <div class="bar-chart" id="streams-chart"></div>
+        </div>
+      </section>
+
+      <!-- Artists -->
+      <section class="section" id="section-artists">
+        <h2>ARTISTS</h2>
+        <p class="section-subtitle">Artist Manager</p>
+        <button class="btn btn-sm" style="width:auto;margin-bottom:20px" onclick="addArtist()">+ ADD ARTIST</button>
+        <table class="data-table">
+          <thead><tr><th>PHOTO</th><th>NAME</th><th>GENRE</th><th>STATUS</th><th>ACTION</th></tr></thead>
+          <tbody id="artists-tbody"></tbody>
+        </table>
+      </section>
+
+      <!-- Music -->
+      <section class="section" id="section-music">
+        <h2>MUSIC CMS</h2>
+        <p class="section-subtitle">Music Release Manager</p>
+        <table class="data-table">
+          <thead><tr><th>TITLE</th><th>ARTIST</th><th>GENRE</th><th>STATUS</th><th>STREAMS</th></tr></thead>
+          <tbody id="music-tbody"></tbody>
+        </table>
+      </section>
+
+      <!-- Events -->
+      <section class="section" id="section-events">
+        <h2>EVENT MANAGER</h2>
+        <p class="section-subtitle">Event Operations</p>
+        <div id="events-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;"></div>
+      </section>
+
+      <!-- Tickets -->
+      <section class="section" id="section-tickets">
+        <h2>TICKET SALES</h2>
+        <p class="section-subtitle">Ticket Dashboard</p>
+        <table class="data-table">
+          <thead><tr><th>TYPE</th><th>PRICE</th><th>SOLD</th><th>REVENUE</th></tr></thead>
+          <tbody id="tickets-tbody"></tbody>
+        </table>
+      </section>
+
+      <!-- Users -->
+      <section class="section" id="section-users">
+        <h2>USERS</h2>
+        <p class="section-subtitle">User Management</p>
+        <div class="search-bar">
+          <input type="text" id="user-search" placeholder="Search users..." oninput="renderUsers()" />
+        </div>
+        <table class="data-table">
+          <thead><tr><th>AVATAR</th><th>NAME</th><th>EMAIL</th><th>LEVEL</th><th>STATUS</th><th>JOINED</th><th>ACTION</th></tr></thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </section>
+
+      <!-- Forum -->
+      <section class="section" id="section-forum">
+        <h2>COMMUNITY</h2>
+        <p class="section-subtitle">Forum Management</p>
+        <div class="forum-cards" id="forum-cards"></div>
+      </section>
+
+      <!-- Settings -->
+      <section class="section" id="section-settings">
+        <h2>SETTINGS</h2>
+        <p class="section-subtitle">Admin Configuration</p>
+        <div class="chart-box">
+          <p style="color:var(--muted)">Admin account and system settings. API connected to backend services.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+// ==================== CONFIG ====================
+const API = ''; // Relative path – API mounted at /api/* via Worker Route
+
+// ==================== AUTH ====================
+let adminToken = localStorage.getItem('adminToken') || '';
+
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value.trim();
+  const errorEl = document.getElementById('login-error');
+
+  if (!email || !password) {
+    errorEl.style.display = 'block';
+    errorEl.textContent = 'Please enter email and password';
+    return;
+  }
+
+  fetch(API + '/api/admin/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  })
+    .then(r => r.json())
+    .then(data => {
+      if (data.token) {
+        adminToken = data.token;
+        localStorage.setItem('adminToken', adminToken);
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('app-screen').classList.add('active');
+        initDashboard();
+      } else {
+        errorEl.style.display = 'block';
+        errorEl.textContent = data.message || 'Invalid credentials';
+      }
+    })
+    .catch(() => {
+      // Offline / dev fallback
+      if (email === 'admin@a-one.com' && password === 'A-ONE2025') {
+        adminToken = 'dev-token';
+        localStorage.setItem('adminToken', adminToken);
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('app-screen').classList.add('active');
+        initDashboard();
+      } else {
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'Connection failed. Check your credentials.';
+      }
+    });
+}
+
+function doLogout() {
+  localStorage.removeItem('adminToken');
+  adminToken = '';
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('app-screen').classList.remove('active');
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-password').value = '';
+}
+
+function authHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': adminToken
+  };
+}
+
+// Check on load
+if (adminToken) {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('app-screen').classList.add('active');
+  initDashboard();
+}
+
+// ==================== SIDEBAR NAV ====================
+document.querySelectorAll('#sidebar-nav a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const section = this.dataset.section;
+    // Activate link
+    document.querySelectorAll('#sidebar-nav a').forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+    // Show section
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('section-' + section).classList.add('active');
+    // Load data
+    switchSection(section);
+  });
+});
+
+function switchSection(section) {
+  switch(section) {
+    case 'dashboard': initDashboard(); break;
+    case 'artists': loadArtists(); break;
+    case 'music': loadMusic(); break;
+    case 'events': loadEvents(); break;
+    case 'tickets': loadTickets(); break;
+    case 'users': loadUsers(); break;
+    case 'forum': loadForum(); break;
+  }
+}
+
+// ==================== DASHBOARD ====================
+function initDashboard() {
+  fetch(API + '/api/admin/stats', { headers: authHeaders() })
+    .then(r => r.json())
+    .catch(() => null); // Use static fallback
+
+  // Static bar chart
+  const chart = document.getElementById('streams-chart');
+  if (chart) {
+    const data = [
+      { month: 'JAN', val: 40 }, { month: 'FEB', val: 80 },
+      { month: 'MAR', val: 120 }, { month: 'APR', val: 200 },
+      { month: 'MAY', val: 260 }
+    ];
+    const max = Math.max(...data.map(d => d.val));
+    chart.innerHTML = data.map(d =>
+      `<div class="bar-col">
+        <div class="bar" style="height:${(d.val / max) * 180}px"></div>
+        <span class="bar-label">${d.val}K</span>
+        <span class="bar-label">${d.month}</span>
+      </div>`
+    ).join('');
+  }
+}
+
+// ==================== ARTISTS ====================
+let artistsData = [
+  { _id:'1', name:'NEON VOID', genre:'TECHNO', status:'ACTIVE', avatar:'', country:'DE' },
+  { _id:'2', name:'SOLAR BEAT', genre:'HOUSE', status:'ACTIVE', avatar:'', country:'US' },
+  { _id:'3', name:'DEEP PHASE', genre:'AMBIENT', status:'INACTIVE', avatar:'', country:'JP' }
+];
+
+function loadArtists() {
+  fetch(API + '/api/artists', { headers: authHeaders() })
+    .then(r => r.json())
+    .then(data => { if (Array.isArray(data)) artistsData = data; })
+    .catch(() => {})
+    .finally(renderArtists);
+}
+function renderArtists() {
+  const tbody = document.getElementById('artists-tbody');
+  tbody.innerHTML = artistsData.map(a => `
+    <tr>
+      <td><div style="width:40px;height:40px;border-radius:50%;background:var(--grid);display:flex;align-items:center;justify-content:center;font-size:18px">${a.name.charAt(0)}</div></td>
+      <td>${a.name}</td>
+      <td>${a.genre}</td>
+      <td><span class="badge ${a.status==='ACTIVE'?'badge-active':'badge-banned'}">${a.status}</span></td>
+      <td class="action-btns">
+        <button class="btn btn-outline btn-sm" onclick="editArtist('${a._id}')">EDIT</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteArtist('${a._id}')">DELETE</button>
+      </td>
+    </tr>`).join('');
+}
+function addArtist() {
+  const name = prompt('Artist Name:');
+  if (!name) return;
+  const genre = prompt('Genre:') || 'TECHNO';
+  const artist = { _id: Date.now().toString(), name, genre, status: 'ACTIVE', avatar: '', country: '' };
+  fetch(API + '/api/artists/create', {
+    method: 'POST', headers: authHeaders(),
+    body: JSON.stringify(artist)
+  }).then(r => r.json()).then(data => {
+    artistsData.push(data._id ? data : artist);
+    renderArtists();
+  }).catch(() => {
+    artistsData.push(artist);
+    renderArtists();
+  });
+}
+function editArtist(id) {
+  const artist = artistsData.find(a => a._id === id);
+  if (!artist) return;
+  const name = prompt('Name:', artist.name);
+  if (name) { artist.name = name; renderArtists(); }
+}
+function deleteArtist(id) {
+  if (!confirm('Delete this artist?')) return;
+  fetch(API + '/api/artists/' + id, { method: 'DELETE', headers: authHeaders() })
+    .catch(() => {});
+  artistsData = artistsData.filter(a => a._id !== id);
+  renderArtists();
+}
+loadArtists();
+
+// ==================== MUSIC ====================
+let musicData = [
+  { _id:'1', title:'SUNSET ENERGY', artist:'NEON VOID', genre:'TECHNO', status:'RELEASED', streams:142000 },
+  { _id:'2', title:'NEON DREAMS', artist:'SOLAR BEAT', genre:'HOUSE', status:'RELEASED', streams:89000 },
+  { _id:'3', title:'DEEP SPACE', artist:'DEEP PHASE', genre:'AMBIENT', status:'PENDING', streams:12000 }
+];
+function loadMusic() {
+  fetch(API + '/api/music', { headers: authHeaders() })
+    .then(r => r.json())
+    .then(data => { if (Array.isArray(data)) musicData = data; })
+    .catch(() => {})
+    .finally(renderMusic);
+}
+function renderMusic() {
+  document.getElementById('music-tbody').innerHTML = musicData.map(m => `
+    <tr>
+      <td>${m.title}</td><td>${m.artist}</td><td>${m.genre}</td>
+      <td><span class="badge ${m.status==='RELEASED'?'badge-active':'badge-member'}">${m.status}</span></td>
+      <td>${(m.streams||0).toLocaleString()}</td>
+    </tr>`).join('');
+}
+loadMusic();
+
+// ==================== EVENTS ====================
+let eventsData = [
+  { _id:'1', title:'A-ONE SUNSET PARTY', location:'Berlin, Germany', date:'2026-08-18', status:'UPCOMING', poster:'' },
+  { _id:'2', title:'NEON NIGHTS', location:'Tokyo, Japan', date:'2026-09-05', status:'UPCOMING', poster:'' },
+  { _id:'3', title:'DEEP PHASE LIVE', location:'Los Angeles, USA', date:'2026-07-30', status:'SOLD OUT', poster:'' }
+];
+function loadEvents() {
+  fetch(API + '/api/events', { headers: authHeaders() })
+    .then(r => r.json())
+    .then(data => { if (Array.isArray(data)) eventsData = data; })
+    .catch(() => {})
+    .finally(renderEvents);
+}
+function renderEvents() {
+  document.getElementById('events-grid').innerHTML = eventsData.map(e => `
+    <div class="kpi-card">
+      <div style="height:120px;background:var(--grid);border-radius:8px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;font-size:40px">★</div>
+      <h4 style="font-size:18px;margin-bottom:4px">${e.title}</h4>
+      <p style="color:var(--muted);font-size:13px">${e.location}</p>
+      <p style="color:var(--muted);font-size:12px;margin-top:4px">${e.date}</p>
+      <span class="badge ${e.status==='UPCOMING'?'badge-active':e.status==='SOLD OUT'?'badge-banned':'badge-member'}" style="margin-top:8px">${e.status}</span>
+    </div>`).join('');
+}
+loadEvents();
+
+// ==================== TICKETS ====================
+let ticketsData = [
+  { _id:'1', type:'VIP', price:199, sold:320 },
+  { _id:'2', type:'STANDARD', price:89, sold:1800 },
+  { _id:'3', type:'EARLY BIRD', price:59, sold:420 }
+];
+function loadTickets() {
+  fetch(API + '/api/tickets', { headers: authHeaders() })
+    .then(r => r.json())
+    .then(data => { if (Array.isArray(data)) ticketsData = data; })
+    .catch(() => {})
+    .finally(renderTickets);
+}
+function renderTickets() {
+  document.getElementById('tickets-tbody').innerHTML = ticketsData.map(t =>
+    `<tr><td>${t.type}</td><td>$${t.price}</td><td>${t.sold.toLocaleString()}</td><td>$${(t.price*t.sold).toLocaleString()}</td></tr>`
+  ).join('');
+}
+loadTickets();
+
+// ==================== USERS ====================
+let usersData = [
+  { _id:'1', username:'asen', email:'asen@a-one.com', level:'VIP', status:'ACTIVE', joinedAt:'2025-03-15', avatar:'', streams:45000 },
+  { _id:'2', username:'neon_fan', email:'fan@email.com', level:'MEMBER', status:'ACTIVE', joinedAt:'2025-06-01', avatar:'', streams:3200 },
+  { _id:'3', username:'deep_listener', email:'deep@email.com', level:'CORE', status:'ACTIVE', joinedAt:'2025-01-20', avatar:'', streams:12000 },
+  { _id:'4', username:'spam_bot', email:'spam@email.com', level:'MEMBER', status:'BANNED', joinedAt:'2025-07-10', avatar:'', streams:0 }
+];
+function loadUsers() {
+  fetch(API + '/api/users', { headers: authHeaders() })
+    .then(r => r.json())
+    .then(data => { if (Array.isArray(data)) usersData = data; })
+    .catch(() => {})
+    .finally(renderUsers);
+}
+function renderUsers() {
+  const q = (document.getElementById('user-search')?.value || '').toLowerCase();
+  const filtered = usersData.filter(u => u.username.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
+  document.getElementById('users-tbody').innerHTML = filtered.map(u => `
+    <tr>
+      <td><div style="width:32px;height:32px;border-radius:50%;background:var(--grid);display:flex;align-items:center;justify-content:center;font-size:14px">${u.username.charAt(0).toUpperCase()}</div></td>
+      <td>${u.username}</td><td>${u.email}</td>
+      <td><span class="badge badge-${u.level.toLowerCase()}">${u.level}</span></td>
+      <td><span class="badge ${u.status==='ACTIVE'?'badge-active':'badge-banned'}">${u.status}</span></td>
+      <td>${u.joinedAt}</td>
+      <td class="action-btns">
+        <button class="btn btn-outline btn-sm" onclick="upgradeUser('${u._id}')">UPGRADE</button>
+        <button class="btn btn-danger btn-sm" onclick="toggleUserStatus('${u._id}')">${u.status==='ACTIVE'?'BAN':'UNBAN'}</button>
+      </td>
+    </tr>`).join('');
+}
+function upgradeUser(id) {
+  const user = usersData.find(u => u._id === id);
+  if (!user) return;
+  const levels = ['MEMBER', 'VIP', 'CORE'];
+  const idx = levels.indexOf(user.level);
+  const next = levels[(idx + 1) % levels.length];
+  fetch(API + '/api/users/level/' + id, {
+    method: 'PUT', headers: authHeaders(),
+    body: JSON.stringify({ level: next })
+  }).catch(() => {});
+  user.level = next;
+  renderUsers();
+}
+function toggleUserStatus(id) {
+  const user = usersData.find(u => u._id === id);
+  if (!user) return;
+  const newStatus = user.status === 'ACTIVE' ? 'BANNED' : 'ACTIVE';
+  fetch(API + '/api/users/status/' + id, {
+    method: 'PUT', headers: authHeaders(),
+    body: JSON.stringify({ status: newStatus })
+  }).catch(() => {});
+  user.status = newStatus;
+  renderUsers();
+}
+loadUsers();
+
+// ==================== FORUM ====================
+let forumData = [
+  { _id:'1', title:'What is your favorite A-ONE track?', username:'neon_fan', featured:true, status:'VISIBLE', createdAt:'2026-07-15' },
+  { _id:'2', title:'A-ONE Sunset Party experience', username:'asen', featured:false, status:'VISIBLE', createdAt:'2026-07-10' },
+  { _id:'3', title:'[SPAM] Buy followers cheap!!!', username:'spam_bot', featured:false, status:'VISIBLE', createdAt:'2026-07-20' }
+];
+function loadForum() {
+  fetch(API + '/api/forumAdmin', { headers: authHeaders() })
+    .then(r => r.json())
+    .then(data => { if (Array.isArray(data)) forumData = data; })
+    .catch(() => {})
+    .finally(renderForum);
+}
+function renderForum() {
+  document.getElementById('forum-cards').innerHTML = forumData.map(p => `
+    <div class="forum-card">
+      <div>
+        <h4>${p.featured ? '★ ' : ''}${p.title}</h4>
+        <p class="meta">by ${p.username} · ${p.createdAt}</p>
+      </div>
+      <div class="action-btns">
+        <button class="btn btn-outline btn-sm" onclick="featurePost('${p._id}')">${p.featured ? 'UNFEATURE' : 'FEATURE'}</button>
+        <button class="btn btn-danger btn-sm" onclick="deletePost('${p._id}')">DELETE</button>
+      </div>
+    </div>`).join('');
+}
+function featurePost(id) {
+  const post = forumData.find(p => p._id === id);
+  if (!post) return;
+  fetch(API + '/api/forumAdmin/feature/' + id, { method: 'PUT', headers: authHeaders() }).catch(() => {});
+  post.featured = !post.featured;
+  renderForum();
+}
+function deletePost(id) {
+  if (!confirm('Delete this post?')) return;
+  fetch(API + '/api/forumAdmin/' + id, { method: 'DELETE', headers: authHeaders() }).catch(() => {});
+  forumData = forumData.filter(p => p._id !== id);
+  renderForum();
+}
+loadForum();
+
+// ==================== KEYBOARD: Enter to login ====================
+document.getElementById('login-password').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
+</body>
+</html>
